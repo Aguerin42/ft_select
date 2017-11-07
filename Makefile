@@ -11,9 +11,10 @@ ifeq ($(OS), Linux)
 	CFLAGSUP = -Wno-sign-compare -Wno-empty-body -g -fsanitize=address
 else
 	CFLAGSUP = -Wno-sign-compare #-fsanitize=address
+	LINK = /usr/lib/libtermcap.dylibe	
 endif
 CPPFLAGS = -I $(INC_PATH) -I $(LIB_INC)
-CLIB = -L $(LIBFT) -lft
+CLIB = -L $(LIBFT) -lft -L -ltermcap
 
 # Headers
 INC_PATH = includes/
@@ -21,7 +22,7 @@ INC_FILE = ft_select.h
 
 # Fichiers sources
 SRC_PATH = src/
-SRC_FILE = main.c error_init.c
+SRC_FILE = main.c error_init.c launch.c struct.c
 
 # Variables
 PROJET = ft_select
@@ -39,7 +40,7 @@ $(OBJ): $(INC)
 
 $(NAME): Makefile $(OBJ) $(LIB)
 	@echo "$(CYAN)Compilation de $(NAME)$(RESET)"
-	@$(CC) $(CFLAGS) $(CFLAGSUP) $(CPPFLAGS) $(OBJ) $(CLIB) /usr/lib/libtermcap.dylib -o $(NAME)
+	@$(CC) $(CFLAGS) $(CFLAGSUP) $(CPPFLAGS) $(OBJ) $(CLIB) $(LINK) -o $(NAME)
 
 clean: del cleanlib
 

@@ -17,8 +17,26 @@ typedef struct	s_select
 	int		print;
 }				t_select;
 
+/*
+** error_init.c
+*/
+
 int				error_usage(void);
 int				error_noenv(void);
 int				error_termvar(void);
+
+/*
+** launch.c
+*/
+
+int				launch(int argc, char **argv, char *term);
+
+/*
+** struct.c
+*/
+
+t_select		*new_tselect(char *arg);
+void			del_tselect(t_select **struc);
+int				put_tselect(t_select *select);
 
 #endif

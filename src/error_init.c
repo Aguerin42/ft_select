@@ -3,14 +3,14 @@
 **	\author	Alexis Guérin
 **	\date	8 novembre 2017
 **
-**	\brief	Erreurs à afficher lorsque le lancement de ft_select est incorrect :
+**	\brief	Erreurs à afficher lorsque le lancement de *ft_select* est incorrect :
 ** 			argument manquant, environnement vide, variable TERM manquante, ...
 */
 
 #include "ft_select.h"
 
 /**
-**	\brief	Message d'erreur en cas de lancement de ft_select sans argument
+**	\brief	Message d'erreur en cas de lancement de *ft_select* sans argument
 **
 **	\return	-1
 */

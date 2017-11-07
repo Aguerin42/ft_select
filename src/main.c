@@ -10,7 +10,7 @@
 /**
 **	\brief	Entrée du programme
 **
-**	main() vérifie que ft_select reçoit bien au moins un argument
+**	main() vérifie que *ft_select* reçoit bien au moins un argument
 **	à son lancement, que l'environnement qui lui est donné n'est pas vide
 **	et que celui-ci contient bien une variable TERM initialisée.
 */
@@ -25,7 +25,5 @@ int	main(int argc, char **argv, char **env)
 		return (error_noenv());
 	if (!(term = getenv("TERM")) || !term[0])
 		return (error_termvar());
-	if (argv)
-		;
-	return (0);
+	return (launch(argc, argv, term));
 }

@@ -31,7 +31,10 @@ t_list	*fill_list(int argc, char **argv)
 		while (--argc > 0)
 		{
 			if (!(struc->arg = ft_strdup(argv[argc])))
-				ft_putendl_fd("ft_select: allocation error.", 2);
+			{
+				ft_lstdel(&list, delete);
+				return (NULL);
+			}
 			(!list) ? list = ft_lstnew(struc, sizeof(struc)) :
 							ft_lstadd(&list, ft_lstnew(struc, sizeof(struc)));
 		}

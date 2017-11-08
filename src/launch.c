@@ -12,25 +12,38 @@
 /**
 **	\brief	Lancement de *ft_select*
 **
-**	launch() fait appel aux différentes fonctions de copies des arguments,
+**	launch() est appelée depuis le main()
+**	et fait appel aux différentes fonctions de copies des arguments,
 **	d'initialisation de la structure *t_select* et de vérification du terminal.
 **
 **	\param	argc -	Nombre d'argument
 **	\param	argv -  Tableau d'arguments (incluant le nom de l'exécutable)
 **	\param	term -	Nom du terminal
+**	\param	save -	Informations sur le terminal
 **
-**	\return	**1** en cas d'erreur, **0** sinon
+**	\return	**1** en cas d'erreur, **0** sinon.
 */
 
-int				launch(int argc, char **argv, char *term)
+int	launch(int argc, char **argv, char *term, struct termios save)
 {
+	int				ret;
 	t_list			*list;
+	struct termios	term_t;
 
+	ret = -1;
 	if (argv && term)
 	{
-		list = fill_list(argc, argv);
-		ft_lstiter(list, print);
-		ft_lstdel(&list, delete);
+		if (get_term(term))
+			return (-1);
+		term_t = set_term(save);
+		if (!(list = fill_list(argc, argv)))
+			return (error_alloc());
+		if ((tcsetattr(0, TCSADRAIN, &term_t)) == -1)
+			ret = error_termbehav();
+		else
+			ret = 0;
+		if (list)
+			ft_lstdel(&list, delete);
 	}
-	return (0);
+	return (ret);
 }

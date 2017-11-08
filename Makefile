@@ -11,7 +11,6 @@ ifeq ($(OS), Linux)
 	CFLAGSUP = -Wno-sign-compare -Wno-empty-body -g -fsanitize=address
 else
 	CFLAGSUP = -Wno-sign-compare #-fsanitize=address
-	LINK = /usr/lib/libtermcap.dylib
 endif
 CPPFLAGS = -I $(INC_PATH) -I $(LIB_INC)
 CLIB = -L $(LIBFT) -lft
@@ -22,7 +21,7 @@ INC_FILE = ft_select.h
 
 # Fichiers sources
 SRC_PATH = src/
-SRC_FILE = main.c error_init.c launch.c list.c struct.c
+SRC_FILE = main.c error.c error_init.c error_term.c get_term.c launch.c list.c struct.c
 
 # Variables
 PROJET = ft_select
@@ -40,7 +39,7 @@ $(OBJ): $(INC)
 
 $(NAME): Makefile $(OBJ) $(LIB)
 	@echo "$(CYAN)Compilation de $(NAME)$(RESET)"
-	@$(CC) $(CFLAGS) $(CFLAGSUP) $(CPPFLAGS) $(OBJ) $(CLIB) $(LINK) -o $(NAME)
+	@$(CC) $(CFLAGS) $(CFLAGSUP) $(CPPFLAGS) $(OBJ) $(CLIB) -lncurses -o $(NAME)
 
 clean: del cleanlib
 

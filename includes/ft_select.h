@@ -8,7 +8,15 @@
 # define FT_SELECT_H
 
 # include "libft.h"
-# include <termios.h>
+# include <term.h>
+# include <unistd.h>
+
+/*
+**	arg	- 		Argument donné à ft_select
+**	cursor -	flag indiquant si le curseur est sur l'élément ou non
+**	selec -		flag indiquant si l'élément est sélectionné ou non
+**	print -		flag indiquant si l'élément doit être affiché ou non
+*/
 
 typedef struct	s_select
 {
@@ -18,22 +26,44 @@ typedef struct	s_select
 	int		print;
 }				t_select;
 
+/**
+**	error.c
+*/
+
+int				error_alloc(void);
+
 /*
-** error_init.c
+**	error_init.c
 */
 
 int				error_usage(void);
 int				error_noenv(void);
 int				error_termvar(void);
 
-/*
-** launch.c
+/**
+**	error_term.c
 */
 
-int				launch(int argc, char **argv, char *term);
+int				error_termbase(void);
+int				error_termdef(char *term);
+int				error_termbehav(void);
+int				error_termrestore(void);
 
 /*
-** list.c
+**	get_term.c
+*/
+
+int				get_term(char *term);
+struct termios	set_term(struct termios term);
+
+/*
+**	launch.c
+*/
+
+int				launch(int argc, char **argv, char *term, struct termios save);
+
+/*
+**	list.c
 */
 
 t_list			*fill_list(int argc, char **argv);
@@ -41,7 +71,7 @@ void			print(t_list *elem);
 void			delete(void *elem, size_t size);
 
 /*
-** struct.c
+**	struct.c
 */
 
 t_select		*new_tselect(char *arg);

@@ -30,28 +30,6 @@ void		del_tselect(t_select **struc)
 }
 
 /**
-**	\brief	Allocation de la mémoire nécessaire à la structure *t_select*.
-**
-**	\param	arg -	Argument à copier dans la structure.
-**
-**	\return	**Structure** allouée et initialisée.
-*/
-
-t_select	*new_tselect(char *arg)
-{
-	t_select	*struc;
-
-	if ((struc = (t_select*)ft_memalloc(sizeof(t_select))))
-	{
-		struc->arg = arg ? ft_strdup(arg) : NULL;
-		struc->selec = 0;
-		struc->cursor = 0;
-		struc->print = 1;
-	}
-	return (struc);
-}
-
-/**
 **	\brief	Affichage de l'argument contenu dans la structure.
 **
 **	\param	select -	Structure dont l'argument _arg_ doit être affiché.

@@ -5,14 +5,14 @@
 **
 **	\brief	Erreurs à afficher lorsque le lancement de *ft_select* est incorrect :
 ** 			argument manquant, environnement vide, variable TERM manquante, ...
+**
+**	Chacune de ces fonctions renvoie **-1**.
 */
 
 #include "ft_select.h"
 
 /**
 **	\brief	Message d'erreur en cas de lancement de *ft_select* sans argument
-**
-**	\return	-1
 */
 
 int	error_usage(void)
@@ -23,8 +23,6 @@ int	error_usage(void)
 
 /**
 **	\brief	Message d'erreur en cas d'environnement vide.
-**
-**	\return	-1
 */
 
 int	error_noenv(void)
@@ -36,8 +34,6 @@ int	error_noenv(void)
 /**
 **	\brief	Message d'erreur si la variable TERM n'est pas définie
 **			ou si elle est vide.
-**
-**	\return	-1
 */
 
 int	error_termvar(void)

@@ -2,6 +2,9 @@
 **	\file	launch.c
 **	\author	Alexis Guérin
 **	\date	8 novembre 2017
+**
+**	\brief	Récupération et vérification des informations du terminal
+**			et création de la liste d'arguments donnés à _ft_select_.
 */
 
 #include "ft_select.h"
@@ -19,20 +22,15 @@
 **	\return	**1** en cas d'erreur, **0** sinon
 */
 
-int	launch(int argc, char **argv, char *term)
+int				launch(int argc, char **argv, char *term)
 {
-	t_select	*struc;
+	t_list			*list;
 
 	if (argv && term)
 	{
-		if (argc)
-		{
-			if ((struc = new_tselect("salut")))
-				ft_putendl("ok");
-			del_tselect(&struc);
-			if (!struc)
-				ft_putendl("ok");
-		}
+		list = fill_list(argc, argv);
+		ft_lstiter(list, print);
+		ft_lstdel(&list, delete);
 	}
 	return (0);
 }

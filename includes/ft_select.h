@@ -8,6 +8,7 @@
 # define FT_SELECT_H
 
 # include "libft.h"
+# include <termios.h>
 
 typedef struct	s_select
 {
@@ -30,6 +31,14 @@ int				error_termvar(void);
 */
 
 int				launch(int argc, char **argv, char *term);
+
+/*
+** list.c
+*/
+
+t_list			*fill_list(int argc, char **argv);
+void			print(t_list *elem);
+void			delete(void *elem, size_t size);
 
 /*
 ** struct.c

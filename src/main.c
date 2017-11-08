@@ -25,5 +25,6 @@ int	main(int argc, char **argv, char **env)
 		return (error_noenv());
 	if (!(term = getenv("TERM")) || !term[0])
 		return (error_termvar());
-	return (launch(argc, argv, term));
+	launch(argc, argv, term);
+	return (0);
 }

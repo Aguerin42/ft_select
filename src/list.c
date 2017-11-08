@@ -9,14 +9,14 @@
 #include "ft_select.h"
 
 /**
-**	\brief	Création de la liste d'arguments
+**	\brief	Création de la liste d'argument
 **
 **	Crée une liste composée des arguments données en entrée de _ft_select_
 **
 **	\param	argc -	Nombre d'argument
-**	\param	argv -	Tableau d'arguments (incluant le nom de l'éxécutable)
+**	\param	argv -	Tableau d'argument (incluant le nom de l'éxécutable
 **
-**	\return	La **liste** d'arguments ou **NULL** en cas d'échec.
+**	\return	La **liste** d'argument ou **NULL** en cas d'échec.
 */
 
 t_list	*fill_list(int argc, char **argv)
@@ -30,13 +30,8 @@ t_list	*fill_list(int argc, char **argv)
 		struc = (t_select*)ft_memalloc(sizeof(t_select));
 		while (--argc > 0)
 		{
-			if (!(struc->arg = ft_strdup(argv[argc])))
-			{
-				ft_lstdel(&list, delete);
-				return (NULL);
-			}
-			(!list) ? list = ft_lstnew(struc, sizeof(struc)) :
-							ft_lstadd(&list, ft_lstnew(struc, sizeof(struc)));
+			struc->arg = ft_strdup(argv[argc]);
+			(!list) ? list = ft_lstnew(struc, sizeof(struc)) : ft_lstadd(&list, ft_lstnew(struc, sizeof(struc)));
 		}
 		struc ? ft_memdel((void**)&struc) : NULL;
 	}
@@ -57,16 +52,39 @@ void	delete(void *elem, size_t size)
 		select = (t_select*)elem;
 		del_tselect(&select);
 	}
-	(void)size;
+	if (size)
+		;
 }
 
 /**
 ** \brief	Fait appel à la fonction d'affichage de _arg_
-**			de la structure *t_select*
+**			de la structure *t_select* (put_tselect())
 */
 
 void	print(t_list *elem)
 {
 	if (elem && elem->content)
 		put_tselect((t_select*)elem->content);
+}
+
+/**
+** \brief	Fait appel à la fonction de modification du flag d'affichage
+**			de la structure *t_select* (set_print())
+*/
+
+void	set_print_list(t_list *elem)
+{
+	if (elem && elem->content)
+		set_print((t_select*)elem->content);
+}
+
+/**
+** \brief	Fait appel à la fonction de modification du flag d'affichage
+**			de la structure *t_select* (unset_print())
+*/
+
+void	unset_print_list(t_list *elem)
+{
+	if (elem && elem->content)
+		unset_print((t_select*)elem->content);
 }

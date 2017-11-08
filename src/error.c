@@ -4,6 +4,8 @@
 **	\date	8 novembre 2017
 **
 **	\brief	Messages d'erreur généraux.
+**
+**	Chacune de ces fonctions renvoie **-1**.
 */
 
 #include "ft_select.h"

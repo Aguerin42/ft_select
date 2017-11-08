@@ -9,6 +9,48 @@
 
 #include "ft_select.h"
 
+static void	fill_char_tab(char tabl[], size_t size, char val)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < size)
+		tabl[i++] = val;
+}
+
+static int	touch(char buffer[])
+{
+	if (buffer[0] == 27 && !buffer[1] && !buffer[2])
+		return (-1);
+	return (0);
+}
+
+/**
+**	\brief	Application des modifications du comportement
+**
+**	ft_select() applique les modifications du comportement au terminal
+**	et attend l'entrée utilisateur.
+*/
+
+static int	ft_select(t_list *list, struct termios term)
+{
+	char	buffer[6];
+
+	if (list)
+	{
+		if ((tcsetattr(0, TCSADRAIN, &term)) == -1)
+			return (error_termbehav());
+		while (touch(buffer) >= 0)
+		{
+			fill_char_tab(buffer, 6, 0);
+			read(0, buffer, 6);
+			ft_lstiter(list, print);
+		}
+		return (0);
+	}
+	return (-1);
+}
+
 /**
 **	\brief	Lancement de *ft_select*
 **
@@ -38,10 +80,9 @@ int	launch(int argc, char **argv, char *term, struct termios save)
 		term_t = set_term(save);
 		if (!(list = fill_list(argc, argv)))
 			return (error_alloc());
-		if ((tcsetattr(0, TCSADRAIN, &term_t)) == -1)
-			ret = error_termbehav();
-		else
-			ret = 0;
+		ft_lstiter(list, set_print_list);
+		set_cursor((t_select*)list->content);
+		ret = ft_select(list, term_t);
 		if (list)
 			ft_lstdel(&list, delete);
 	}

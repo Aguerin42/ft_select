@@ -69,13 +69,22 @@ int				launch(int argc, char **argv, char *term, struct termios save);
 t_list			*fill_list(int argc, char **argv);
 void			print(t_list *elem);
 void			delete(void *elem, size_t size);
+void			set_print_list(t_list *elem);
+void			unset_print_list(t_list *elem);
 
 /*
 **	struct.c
 */
 
-t_select		*new_tselect(char *arg);
 void			del_tselect(t_select **struc);
 int				put_tselect(t_select *select);
+
+/*
+**	struct_member.c
+*/
+
+void			set_print(t_select *elem);
+void			unset_print(t_select *elem);
+void			set_cursor(t_select *elem);
 
 #endif

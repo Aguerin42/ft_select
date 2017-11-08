@@ -40,5 +40,17 @@ void		del_tselect(t_select **struc)
 
 int			put_tselect(t_select *select)
 {
-	return (select ? ft_putstrs(select->arg) : 0);
+	int	nb;
+
+	nb = 0;
+	if (select && select->print)
+	{
+		if (select->selec)
+			ft_putstr(tgetstr("us", NULL));
+		if (select->cursor)
+			nb = ft_putstr(tgetstr("mr", NULL));
+		ft_putstr(select->arg);
+		ft_putstr(tgetstr("me", NULL));
+	}
+	return (nb);
 }

@@ -13,14 +13,15 @@
 **	\brief	Récupération des informations du terminal.
 **
 **	get_term() récupère les informations du terminal _term_. S'il n'est pas
-**	listé dans la base de données ou que celle-ci n'est pas disponible, un message
-**	d'erreur correspondant (respectivement par error_termdef() ou error_termbase())
-**	est affiché et **-1** retourné.
+**	listé dans la base de données ou que celle-ci n'est pas disponible,
+**	un message d'erreur correspondant (respectivement par error_termdef()
+**	ou error_termbase()) est affiché et **-1** retourné.
 **
 **	\param	term -	Nom du terminal à chercher dans la base de données.
 **
-**	\return	**0** en cas de succès, **-1** si la variable _term_ est NULL, que le
-**			la base données est introuvable ou que le terminal n'y est pas listé.
+**	\return	**0** en cas de succès, **-1** si la variable _term_ est NULL,
+**			que le la base données est introuvable ou que le terminal
+**			n'y est pas listé.
 */
 
 int	get_term(char *term)
@@ -42,8 +43,8 @@ int	get_term(char *term)
 **	\brief	Modification de la structure termios.
 **
 **	set_term() copie les informations du terminal dans une nouvelle structure
-**	_termios_, le met en mode non canonique,
-**	désactive l'affichage des touches tappées.
+**	_termios_, le met en mode non canonique, désactive l'affichage des touches
+**	tappées et l'affichage du curseur.
 **
 **	\param	term -	Structure du terminal de référence.
 **
@@ -59,5 +60,6 @@ struct termios	set_term(struct termios term)
 	new.c_lflag &= ~(ECHO);
 	new.c_cc[VMIN] = 1;
 	new.c_cc[VTIME] = 0;
+	ft_putstr(tgetstr("vi", NULL));
 	return (new);
 }

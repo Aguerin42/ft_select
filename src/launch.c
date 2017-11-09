@@ -18,10 +18,32 @@ static void	fill_char_tab(char tabl[], size_t size, char val)
 		tabl[i++] = val;
 }
 
-static int	touch(char buffer[])
+static int	key(char buffer[], t_list *list)
 {
+	if (!list)
+		return (-1);
 	if (buffer[0] == 27 && !buffer[1] && !buffer[2])
 		return (-1);
+	if (buffer[0] == 127 && !buffer[1] && !buffer[2])
+		ft_lstiter_if(list, unset_print, is_oncursor);
+	else if (buffer[0] == 27 && buffer[1] == 91)
+	{
+		if (buffer[2] == 68)
+			ft_putstr("gauche");
+		else if (buffer[2] == 67)
+			ft_putstr("droite");
+		else if (buffer[2] == 65)
+			ft_putstr("haut");
+		else if (buffer[2] == 66)
+			ft_putstr("bas");
+	}		
+	else if (buffer[0] == 10 && !buffer[1] && !buffer[2])
+		ft_putstr("return");
+	else if (buffer[0] == 32 && !buffer[1] && !buffer[2])
+		ft_lstiter_if(list, select_arg, is_oncursor);
+	ft_putendl("");
+	ft_lstiter(list, print);
+	ft_putendl("");
 	return (0);
 }
 
@@ -40,11 +62,10 @@ static int	ft_select(t_list *list, struct termios term)
 	{
 		if ((tcsetattr(0, TCSADRAIN, &term)) == -1)
 			return (error_termbehav());
-		while (touch(buffer) >= 0)
+		while (key(buffer, list) >= 0)
 		{
 			fill_char_tab(buffer, 6, 0);
 			read(0, buffer, 6);
-			ft_lstiter(list, print);
 		}
 		return (0);
 	}
@@ -55,7 +76,7 @@ static int	ft_select(t_list *list, struct termios term)
 **	\brief	Lancement de *ft_select*
 **
 **	launch() est appelée depuis le main()
-**	et fait appel aux différentes fonctions de copies des arguments,
+**	et fait appel aux différentes fonctions de copie des arguments,
 **	d'initialisation de la structure *t_select* et de vérification du terminal.
 **
 **	\param	argc -	Nombre d'argument

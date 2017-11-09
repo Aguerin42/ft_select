@@ -3,8 +3,9 @@
 **	\author	Alexis Guérin
 **	\date	8 novembre 2017
 **
-**	\brief	Erreurs à afficher lorsque le lancement de *ft_select* est incorrect :
-** 			argument manquant, environnement vide, variable TERM manquante, ...
+**	\brief	Erreurs à afficher lorsque le lancement de _ft_select_
+**			est incorrect : argument manquant, environnement vide,
+			variable TERM manquante, ...
 **
 **	Chacune de ces fonctions renvoie **-1**.
 */

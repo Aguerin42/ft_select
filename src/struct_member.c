@@ -33,7 +33,7 @@ void	unset_print(t_select *elem)
 }
 
 /**
-**	\brief	État du curseur
+**	\brief	Modification de l'état du curseur
 **
 **	Active ou désactive le curseur sur l'argument donné.
 */
@@ -42,4 +42,14 @@ void	set_cursor(t_select *elem)
 {
 	if (elem)
 		elem->cursor = !elem->cursor;
+}
+
+/**
+**	\brief	Modification de l'état de sélection d'un élément
+*/
+
+void	select_arg(t_select *elem)
+{
+	if (elem)
+		elem->selec = !elem->selec;
 }

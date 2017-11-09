@@ -31,7 +31,8 @@ t_list	*fill_list(int argc, char **argv)
 		while (--argc > 0)
 		{
 			struc->arg = ft_strdup(argv[argc]);
-			(!list) ? list = ft_lstnew(struc, sizeof(struc)) : ft_lstadd(&list, ft_lstnew(struc, sizeof(struc)));
+			(!list) ? list = ft_lstnew(struc, sizeof(struc))
+				: ft_lstadd(&list, ft_lstnew(struc, sizeof(struc)));
 		}
 		struc ? ft_memdel((void**)&struc) : NULL;
 	}
@@ -87,4 +88,21 @@ void	unset_print_list(t_list *elem)
 {
 	if (elem && elem->content)
 		unset_print((t_select*)elem->content);
+}
+
+/**
+**	\brief	Application de fonction conditionnelle.
+**
+**	Applique la fonction _t_ sur chaque maillon de la liste et,
+**	si celle-ci renvoie _vrai_, applique la fonction _f_ sur les maillons.
+*/
+
+void	ft_lstiter_if(t_list *lst, void (*f)(t_select*), int (t)(t_select*))
+{
+	while (lst)
+	{
+		if (t((t_select*)lst->content))
+			f((t_select*)lst->content);
+		lst = lst->next;
+	}
 }

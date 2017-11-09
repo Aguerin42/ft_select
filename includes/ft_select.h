@@ -71,6 +71,7 @@ void			print(t_list *elem);
 void			delete(void *elem, size_t size);
 void			set_print_list(t_list *elem);
 void			unset_print_list(t_list *elem);
+void			ft_lstiter_if(t_list *lst, void (*f)(t_select *e), int t(t_select *l));
 
 /*
 **	struct.c
@@ -80,11 +81,20 @@ void			del_tselect(t_select **struc);
 int				put_tselect(t_select *select);
 
 /*
+**	struct_is.c
+*/
+
+int				is_oncursor(t_select *elem);
+int				is_printable(t_select *elem);
+int				is_select(t_select *elem);
+
+/*
 **	struct_member.c
 */
 
 void			set_print(t_select *elem);
 void			unset_print(t_select *elem);
 void			set_cursor(t_select *elem);
+void			select_arg(t_select *elem);
 
 #endif

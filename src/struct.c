@@ -34,8 +34,8 @@ void		del_tselect(t_select **struc)
 **
 **	\param	select -	Structure dont l'argument _arg_ doit être affiché.
 **
-**	\return	**Nombre** de caractères affichés à l'écran ou **0** si _select_ est NULL
-**			(ou que _arg_ est NULL).
+**	\return	**Nombre** de caractères affichés à l'écran
+**			ou **0** si _select_ est NULL (ou que _arg_ est NULL).
 */
 
 int			put_tselect(t_select *select)

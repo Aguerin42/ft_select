@@ -71,7 +71,7 @@ struct termios	set_term(struct termios term)
 
 int	reset_term(struct termios term)
 {
-	ft_putstr(tgetstr("vs", NULL));
+	ft_putstr(tgetstr("ve", NULL));
 	if ((tcsetattr(0, TCSADRAIN, &term)) == -1)
 		return (error_termrestore());
 	return (0);

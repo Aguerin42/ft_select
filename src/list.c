@@ -33,6 +33,7 @@ t_list	*fill_list(int argc, char **argv)
 			struc->arg = ft_strdup(argv[argc]);
 			(!list) ? list = ft_lstnew(struc, sizeof(struc))
 				: ft_lstadd(&list, ft_lstnew(struc, sizeof(struc)));
+			list ? set_all_member(list->content) : NULL;
 		}
 		struc ? ft_memdel((void**)&struc) : NULL;
 	}
@@ -54,7 +55,8 @@ void	delete(void *elem, size_t size)
 		del_tselect(&select);
 	}
 	if (size)
-		;
+	{
+	}
 }
 
 /**
@@ -66,6 +68,12 @@ void	print(t_list *elem)
 {
 	if (elem && elem->content)
 		put_tselect((t_select*)elem->content);
+}
+
+void	change_select_list(t_list *elem)
+{
+	if (elem && elem->content)
+		select_change((t_select*)elem->content);
 }
 
 /**

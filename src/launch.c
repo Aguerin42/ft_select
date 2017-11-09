@@ -40,7 +40,7 @@ static int	key(char buffer[], t_list *list)
 	else if (buffer[0] == 10 && !buffer[1] && !buffer[2])
 		ft_putstr("return");
 	else if (buffer[0] == 32 && !buffer[1] && !buffer[2])
-		ft_lstiter_if(list, select_arg, is_oncursor);
+		ft_lstiter_if(list, select_change, is_oncursor);
 	ft_lstiter(list, print);
 	ft_putendl("");
 	return (0);
@@ -59,6 +59,7 @@ static int	ft_select(t_list *list, struct termios term)
 
 	if (list)
 	{
+		ft_putstr(tgoto(tgetstr("cm", NULL),  0, 0));
 		if ((tcsetattr(0, TCSADRAIN, &term)) == -1)
 			return (error_termbehav());
 		while (key(buffer, list) >= 0)
@@ -100,7 +101,6 @@ int	launch(int argc, char **argv, char *term, struct termios save)
 		term_t = set_term(save);
 		if (!(list = fill_list(argc, argv)))
 			return (error_alloc());
-		ft_lstiter(list, set_print_list);
 		set_cursor((t_select*)list->content);
 		ret = ft_select(list, term_t);
 		if (list)

@@ -48,8 +48,30 @@ void	set_cursor(t_select *elem)
 **	\brief	Modification de l'état de sélection d'un élément
 */
 
-void	select_arg(t_select *elem)
+void	select_change(t_select *elem)
 {
 	if (elem)
 		elem->selec = !elem->selec;
+}
+
+void	select_arg(t_select *elem)
+{
+	if (elem)
+		elem->selec = 1;
+}
+
+void	unselect_arg(t_select *elem)
+{
+	if (elem)
+		elem->selec = 0;
+}
+
+void	set_all_member(t_select *elem)
+{
+	if (elem)
+	{
+		elem->cursor = 0;
+		elem->selec = 0;
+		elem->print = 1;
+	}
 }

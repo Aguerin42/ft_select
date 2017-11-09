@@ -10,6 +10,8 @@
 # include "libft.h"
 # include <term.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <signal.h>
 
 /*
 **	arg	- 		Argument donné à ft_select
@@ -69,6 +71,7 @@ int				launch(int argc, char **argv, char *term, struct termios save);
 
 t_list			*fill_list(int argc, char **argv);
 void			print(t_list *elem);
+void			change_select_list(t_list *elem);
 void			delete(void *elem, size_t size);
 void			set_print_list(t_list *elem);
 void			unset_print_list(t_list *elem);
@@ -97,6 +100,7 @@ int				is_select(t_select *elem);
 void			set_print(t_select *elem);
 void			unset_print(t_select *elem);
 void			set_cursor(t_select *elem);
-void			select_arg(t_select *elem);
+void			select_change(t_select *elem);
+void			set_all_member(t_select *elem);
 
 #endif

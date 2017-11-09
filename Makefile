@@ -13,7 +13,7 @@ else
 	CFLAGSUP = -Wno-sign-compare #-fsanitize=address
 endif
 CPPFLAGS = -I $(INC_PATH) -I $(LIB_INC)
-CLIB = -L $(LIBFT) -lft
+CLIB = -L $(LIBFT) -lft -ltermcap
 
 # Headers
 INC_PATH = includes/
@@ -29,6 +29,7 @@ LIBFT = libft/
 LIB_INC = $(LIBFT)includes/
 OBJ = $(SRC:.c=.o)
 LIB = $(LIBFT)libft.a
+
 INC = $(addprefix $(INC_PATH), $(INC_FILE))
 SRC = $(addprefix $(SRC_PATH), $(SRC_FILE))
 
@@ -39,7 +40,7 @@ $(OBJ): $(INC)
 
 $(NAME): Makefile $(OBJ) $(LIB)
 	@echo "$(CYAN)Compilation de $(NAME)$(RESET)"
-	@$(CC) $(CFLAGS) $(CFLAGSUP) $(CPPFLAGS) $(OBJ) $(CLIB) -lncurses -o $(NAME)
+	@$(CC) $(CFLAGS) $(CFLAGSUP) $(CPPFLAGS) $(OBJ) $(CLIB) -o $(NAME)
 
 clean: del cleanlib
 

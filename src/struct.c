@@ -46,9 +46,9 @@ int			put_tselect(t_select *select)
 	if (select && select->print)
 	{
 		if (select->selec)
-			ft_putstr(tgetstr("us", NULL));
+			ft_putstr(tgetstr("mr", NULL));
 		if (select->cursor)
-			nb = ft_putstr(tgetstr("mr", NULL));
+			nb = ft_putstr(tgetstr("us", NULL));
 		ft_putstr(select->arg);
 		ft_putstr(tgetstr("me", NULL));
 	}

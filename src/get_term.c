@@ -61,5 +61,18 @@ struct termios	set_term(struct termios term)
 	new.c_cc[VMIN] = 1;
 	new.c_cc[VTIME] = 0;
 	ft_putstr(tgetstr("vi", NULL));
+	ft_putstr(tgetstr("ti", NULL));
 	return (new);
+}
+
+/**
+**	\brief	Restauration du terminal par défaut.
+*/
+
+int	reset_term(struct termios term)
+{
+	ft_putstr(tgetstr("vs", NULL));
+	if ((tcsetattr(0, TCSADRAIN, &term)) == -1)
+		return (error_termrestore());
+	return (0);
 }

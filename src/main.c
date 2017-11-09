@@ -23,7 +23,7 @@
 **	error_usage(), error_noenv() ou error_termvar()).
 */
 
-int	main(int argc, char **argv, char **env)
+int			main(int argc, char **argv, char **env)
 {
 	int				ret;
 	char			*term;
@@ -37,7 +37,6 @@ int	main(int argc, char **argv, char **env)
 		return (error_termvar());
 	tcgetattr(0, &term_save);
 	ret = launch(argc, argv, term, term_save);
-	if ((tcsetattr(0, TCSADRAIN, &term_save)) == -1)
-		return (error_termrestore());
+	ret += reset_term(term_save);
 	return (ret);
 }

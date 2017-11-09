@@ -55,6 +55,7 @@ int				error_termrestore(void);
 
 int				get_term(char *term);
 struct termios	set_term(struct termios term);
+int				reset_term(struct termios term);
 
 /*
 **	launch.c
@@ -71,7 +72,8 @@ void			print(t_list *elem);
 void			delete(void *elem, size_t size);
 void			set_print_list(t_list *elem);
 void			unset_print_list(t_list *elem);
-void			ft_lstiter_if(t_list *lst, void (*f)(t_select *e), int t(t_select *l));
+void			ft_lstiter_if(t_list *lst, void (*f)(t_select *e),\
+					int t(t_select *l));
 
 /*
 **	struct.c

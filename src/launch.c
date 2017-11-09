@@ -41,7 +41,6 @@ static int	key(char buffer[], t_list *list)
 		ft_putstr("return");
 	else if (buffer[0] == 32 && !buffer[1] && !buffer[2])
 		ft_lstiter_if(list, select_arg, is_oncursor);
-	ft_putendl("");
 	ft_lstiter(list, print);
 	ft_putendl("");
 	return (0);

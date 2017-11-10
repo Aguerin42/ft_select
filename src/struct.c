@@ -46,11 +46,26 @@ int			put_tselect(t_select *select)
 	if (select && select->print)
 	{
 		if (select->selec)
-			ft_putstr(tgetstr("mr", NULL));
+			ft_putstr_fd(tgetstr("mr", NULL), 0);
 		if (select->cursor)
-			nb = ft_putstr(tgetstr("us", NULL));
-		ft_putstr(select->arg);
-		ft_putstr(tgetstr("me", NULL));
+			nb = ft_putstr_fd(tgetstr("us", NULL), 0);
+		ft_putstr_fd(select->arg, 0);
+		ft_putstr_fd(tgetstr("me", NULL), 0);
 	}
 	return (nb);
+}
+
+/**
+**	\brief	Affichage des arguments sans formatage
+**
+**	Affiche l'argument s'il est sélectionné et affichable, suivi d'un espace.
+*/
+
+void		put_select_arg(t_select *select)
+{
+	if (select && select->print && select->selec)
+	{
+		ft_putstr_fd(select->arg, 1);
+		ft_putchar_fd(' ', 1);
+	}
 }

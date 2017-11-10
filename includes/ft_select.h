@@ -75,6 +75,7 @@ void			change_select_list(t_list *elem);
 void			delete(void *elem, size_t size);
 void			set_print_list(t_list *elem);
 void			unset_print_list(t_list *elem);
+void			put_select_arg_list(t_list *elem);
 void			ft_lstiter_if(t_list *lst, void (*f)(t_select *e),\
 					int t(t_select *l));
 
@@ -84,6 +85,7 @@ void			ft_lstiter_if(t_list *lst, void (*f)(t_select *e),\
 
 void			del_tselect(t_select **struc);
 int				put_tselect(t_select *select);
+void			put_select_arg(t_select *select);
 
 /*
 **	struct_is.c

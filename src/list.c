@@ -103,6 +103,15 @@ void	unset_print_list(t_list *elem)
 }
 
 /**
+**	\brief	Fait appel à la fonction d'affichage d'un argument sans formatage
+*/
+void	put_select_arg_list(t_list *elem)
+{
+	if (elem && elem->content)
+		put_select_arg(elem->content);
+}
+
+/**
 **	\brief	Application de fonction conditionnelle.
 **
 **	Applique la fonction _t_ sur chaque maillon de la liste et,

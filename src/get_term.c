@@ -60,8 +60,8 @@ struct termios	set_term(struct termios term)
 	new.c_lflag &= ~(ECHO);
 	new.c_cc[VMIN] = 1;
 	new.c_cc[VTIME] = 0;
-	ft_putstr(tgetstr("vi", NULL));
-	ft_putstr(tgetstr("ti", NULL));
+	ft_putstr_fd(tgetstr("vi", NULL), 0);
+	ft_putstr_fd(tgetstr("ti", NULL), 0);
 	return (new);
 }
 
@@ -71,7 +71,7 @@ struct termios	set_term(struct termios term)
 
 int	reset_term(struct termios term)
 {
-	ft_putstr(tgetstr("ve", NULL));
+	ft_putstr_fd(tgetstr("ve", NULL), 0);
 	if ((tcsetattr(0, TCSADRAIN, &term)) == -1)
 		return (error_termrestore());
 	return (0);

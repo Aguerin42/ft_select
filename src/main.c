@@ -38,11 +38,11 @@ static void				catch_signal(int signal)
 	}
 	else if (signal == SIGTSTP)
 	{
-		ft_putendl("Ctrl-z");
+		ft_putendl_fd("Ctrl-z", 0);
 		exit(0);
 	}
 	else if (signal == SIGWINCH)
-		ft_putendl("resize");
+		ft_putendl_fd("resize", 0);
 	ft_putnbrl(signal);
 }
 

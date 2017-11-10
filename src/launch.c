@@ -29,20 +29,23 @@ static int	key(char buffer[], t_list *list)
 	else if (buffer[0] == 27 && buffer[1] == 91)
 	{
 		if (buffer[2] == 68)
-			ft_putstr("gauche");
+			ft_putstr_fd("gauche", 0);
 		else if (buffer[2] == 67)
-			ft_putstr("droite");
+			ft_putstr_fd("droite", 0);
 		else if (buffer[2] == 65)
-			ft_putstr("haut");
+			ft_putstr_fd("haut", 0);
 		else if (buffer[2] == 66)
-			ft_putstr("bas");
+			ft_putstr_fd("bas", 0);
 	}		
 	else if (buffer[0] == 10 && !buffer[1] && !buffer[2])
-		ft_putstr("return");
+	{
+		ft_lstiter(list, put_select_arg_list);
+		return (-1);
+	}
 	else if (buffer[0] == 32 && !buffer[1] && !buffer[2])
 		ft_lstiter_if(list, select_change, is_oncursor);
 	ft_lstiter(list, print);
-	ft_putendl("");
+	ft_putendl_fd("", 0);
 	return (0);
 }
 
@@ -56,10 +59,10 @@ static int	key(char buffer[], t_list *list)
 static int	ft_select(t_list *list, struct termios term)
 {
 	char	buffer[6];
-
+	
 	if (list)
 	{
-		ft_putstr(tgoto(tgetstr("cm", NULL),  0, 0));
+		ft_putstr_fd(tgoto(tgetstr("cm", NULL),  0, 0), 0);
 		if ((tcsetattr(0, TCSADRAIN, &term)) == -1)
 			return (error_termbehav());
 		while (key(buffer, list) >= 0)

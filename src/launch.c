@@ -58,15 +58,17 @@ static int	key(char buffer[], t_list *list)
 
 static int	ft_select(t_list *list, struct termios term)
 {
-	char	buffer[6];
-	
+	char			buffer[6];
+	struct winsize	size;
 	if (list)
 	{
 		ft_putstr_fd(tgoto(tgetstr("cm", NULL),  0, 0), 0);
 		if ((tcsetattr(0, TCSADRAIN, &term)) == -1)
 			return (error_termbehav());
+		size = window_size(1);
 		while (key(buffer, list) >= 0)
 		{
+			size = window_size(0);
 			fill_char_tab(buffer, 6, 0);
 			read(0, buffer, 6);
 		}

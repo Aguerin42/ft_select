@@ -42,7 +42,7 @@ static void				catch_signal(int signal)
 		exit(0);
 	}
 	else if (signal == SIGWINCH)
-		ft_putendl_fd("resize", 0);
+		window_size(1);
 	ft_putnbrl(signal);
 }
 

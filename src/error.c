@@ -19,3 +19,14 @@ int	error_alloc(void)
 	ft_putendl_fd("ft_select: allocation error. Exit", 2);
 	return (-1);
 }
+
+/**
+**	\brief	Message d'erreur en cas de problème de récupération
+**			de la taille de la fenêtre.
+*/
+
+int	error_winsize(void)
+{
+	ft_putendl_fd("ft_select: failed to get window size. Exit", 2);
+	return (-1);
+}

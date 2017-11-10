@@ -12,6 +12,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <sys/ioctl.h>
 
 /*
 **	arg	- 		Argument donné à ft_select
@@ -33,6 +34,7 @@ typedef struct	s_select
 */
 
 int				error_alloc(void);
+int				error_winsize(void);
 
 /*
 **	error_init.c
@@ -56,6 +58,7 @@ int				error_termrestore(void);
 */
 
 int				get_term(char *term);
+struct winsize	window_size(int init);
 struct termios	set_term(struct termios term);
 int				reset_term(struct termios term);
 

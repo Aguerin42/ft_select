@@ -20,7 +20,7 @@
 **	\param	term -	Nom du terminal à chercher dans la base de données.
 **
 **	\return	**0** en cas de succès, **-1** si la variable _term_ est NULL,
-**			que le la base données est introuvable ou que le terminal
+**			que la base données est introuvable ou que le terminal
 **			n'y est pas listé.
 */
 
@@ -40,15 +40,41 @@ int	get_term(char *term)
 }
 
 /**
-**	\brief	Modification de la structure termios.
+**	\brief	Obtention des dimensions de la fenêtre.
+**
+**	window_size() récupère les dimensions de la fenêtre.
+**
+**	_init_ indique à la fonction si celle-ci doit faire appelle à [ioctl][]
+**	pour initialiser la structure _winsize_ ou si elle doit seulement être retournée.
+**
+**	\param	init -	**0** pour retourner simplement la structure
+**					ou **non nul** pour initialiser la structure et la retourner.
+**
+**	[ioctl]: http://man7.org/linux/man-pages/man2/ioctl.2.html
+*/
+
+struct winsize	window_size(int init)
+{
+	static struct winsize	size;
+
+	if (init)
+		if (ioctl(0, TIOCGWINSZ, &size) == -1)
+			error_winsize();
+	return (size);
+}
+
+/**
+**	\brief	Modification de la structure _termios_.
 **
 **	set_term() copie les informations du terminal dans une nouvelle structure
-**	_termios_, le met en mode non canonique, désactive l'affichage des touches
+**	_[termios][]_, le met en mode non canonique, désactive l'affichage des touches
 **	tappées et l'affichage du curseur.
 **
 **	\param	term -	Structure du terminal de référence.
 **
 **	\return	Structure du terminal modifiée.
+**
+**	[termios]: https://linux.die.net/man/3/termios
 */
 
 struct termios	set_term(struct termios term)
@@ -69,10 +95,10 @@ struct termios	set_term(struct termios term)
 **	\brief	Restauration du terminal par défaut.
 */
 
-int	reset_term(struct termios term)
+int	reset_term(struct termios default_term)
 {
 	ft_putstr_fd(tgetstr("ve", NULL), 0);
-	if ((tcsetattr(0, TCSADRAIN, &term)) == -1)
+	if ((tcsetattr(0, TCSADRAIN, &default_term)) == -1)
 		return (error_termrestore());
 	return (0);
 }

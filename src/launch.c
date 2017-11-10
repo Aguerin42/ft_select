@@ -44,8 +44,6 @@ static int	key(char buffer[], t_list *list)
 	}
 	else if (buffer[0] == 32 && !buffer[1] && !buffer[2])
 		ft_lstiter_if(list, select_change, is_oncursor);
-	ft_lstiter(list, print);
-	ft_putendl_fd("", 0);
 	return (0);
 }
 
@@ -68,6 +66,8 @@ static int	ft_select(t_list *list, struct termios term)
 		size = window_size(1);
 		while (key(buffer, list) >= 0)
 		{
+			ft_putstr_fd(tgetstr("ti", NULL), 0);
+			ft_lstiter(list, print);
 			size = window_size(0);
 			fill_char_tab(buffer, 6, 0);
 			read(0, buffer, 6);

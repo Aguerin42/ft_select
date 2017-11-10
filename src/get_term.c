@@ -87,7 +87,6 @@ struct termios	set_term(struct termios term)
 	new.c_cc[VMIN] = 1;
 	new.c_cc[VTIME] = 0;
 	ft_putstr_fd(tgetstr("vi", NULL), 0);
-	ft_putstr_fd(tgetstr("ti", NULL), 0);
 	return (new);
 }
 

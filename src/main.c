@@ -8,21 +8,32 @@
 
 #include "ft_select.h"
 
-void	term_default(int set_default)
+/*
+**	Obtention du comportement par défaut ou rétablissement de celui-ci
+*/
+
+static struct termios	term_default(int set_default, int *ret)
 {
 	static struct termios	term_default;
 
 	if (!set_default)
-		tcgetattr(0, &term_default);
+	{
+		if (tcgetattr(0, &term_default) == -1)
+		{
+			error_termbehav();
+			ret ? ret += -1 : ret;
+		}
+	}
 	else
 		reset_term(term_default);
+	return (term_default);
 }
 
-void	catch_signal(int signal)
+static void				catch_signal(int signal)
 {
 	if (signal == SIGINT)
 	{
-		term_default(1);
+		term_default(1, NULL);
 		exit(1);
 	}
 	else if (signal == SIGTSTP)
@@ -35,7 +46,7 @@ void	catch_signal(int signal)
 	ft_putnbrl(signal);
 }
 
-void	sig(void)
+static void				sig(void)
 {
 	signal(SIGINT, catch_signal);
 	signal(SIGTSTP, catch_signal);
@@ -57,12 +68,12 @@ void	sig(void)
 **	error_usage(), error_noenv() ou error_termvar()).
 */
 
-int			main(int argc, char **argv, char **env)
+int						main(int argc, char **argv, char **env)
 {
 	int				ret;
 	char			*term;
-	struct termios	term_save;
 
+	ret = 0;
 	sig();
 	if (argc == 1)
 		return (error_usage());
@@ -70,9 +81,7 @@ int			main(int argc, char **argv, char **env)
 		return (error_noenv());
 	if (!(term = getenv("TERM")) || !term[0])
 		return (error_termvar());
-	term_default(0);
-	tcgetattr(0, &term_save);
-	ret = launch(argc, argv, term, term_save);
-	ret += reset_term(term_save);
+	ret += launch(argc, argv, term, term_default(0, &ret));
+	term_default(1, &ret);
 	return (ret);
 }

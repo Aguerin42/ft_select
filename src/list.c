@@ -60,7 +60,7 @@ void	delete(void *elem, size_t size)
 }
 
 /**
-** \brief	Fait appel à la fonction d'affichage de _arg_
+**	\brief	Fait appel à la fonction d'affichage de _arg_
 **			de la structure *t_select* (put_tselect())
 */
 
@@ -70,6 +70,10 @@ void	print(t_list *elem)
 		put_tselect((t_select*)elem->content);
 }
 
+/**
+**	\brief	Change l'état de sélection d'un argument
+*/
+
 void	change_select_list(t_list *elem)
 {
 	if (elem && elem->content)
@@ -77,7 +81,7 @@ void	change_select_list(t_list *elem)
 }
 
 /**
-** \brief	Fait appel à la fonction de modification du flag d'affichage
+**	\brief	Fait appel à la fonction de modification du flag d'affichage
 **			de la structure *t_select* (set_print())
 */
 
@@ -88,7 +92,7 @@ void	set_print_list(t_list *elem)
 }
 
 /**
-** \brief	Fait appel à la fonction de modification du flag d'affichage
+**	\brief	Fait appel à la fonction de modification du flag d'affichage
 **			de la structure *t_select* (unset_print())
 */
 

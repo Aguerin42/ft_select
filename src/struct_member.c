@@ -54,17 +54,29 @@ void	select_change(t_select *elem)
 		elem->selec = !elem->selec;
 }
 
+/**
+**	\brief	Sélection d'un argument
+*/
+
 void	select_arg(t_select *elem)
 {
 	if (elem)
 		elem->selec = 1;
 }
 
+/**
+**	\brief	Désélection d'un argument
+*/
+
 void	unselect_arg(t_select *elem)
 {
 	if (elem)
 		elem->selec = 0;
 }
+
+/**
+**	\brief	Initialisation des champs de la structure _t_select_
+*/
 
 void	set_all_member(t_select *elem)
 {

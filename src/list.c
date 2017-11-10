@@ -60,6 +60,30 @@ void	delete(void *elem, size_t size)
 }
 
 /**
+**	\brief	Obtention de la taille du plus grand argument de la liste.
+**
+**	La fonction parcours la liste et retourne la taille du plus grand
+**	argument affichable.
+*/
+
+int		max_size_arg(t_list *list)
+{
+	int			size;
+	int			max;
+	t_select	*elem;
+
+	max = 0;
+	while (list)
+	{
+		if ((elem = (t_select*)list->content))
+			if (elem->print && ((size = ft_strlen(elem->arg)) > max))
+				max = size;
+		list = list->next;
+	}
+	return (max);
+}
+
+/**
 **	\brief	Fait appel à la fonction d'affichage de _arg_
 **			de la structure *t_select* (put_tselect())
 */

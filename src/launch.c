@@ -56,8 +56,10 @@ static int	key(char buffer[], t_list *list)
 
 static int	ft_select(t_list *list, struct termios term)
 {
+	int				max_size;
 	char			buffer[6];
 	struct winsize	size;
+
 	if (list)
 	{
 		ft_putstr_fd(tgoto(tgetstr("cm", NULL),  0, 0), 0);
@@ -69,6 +71,7 @@ static int	ft_select(t_list *list, struct termios term)
 			ft_putstr_fd(tgetstr("ti", NULL), 0);
 			ft_lstiter(list, print);
 			size = window_size(0);
+			max_size = max_size_arg(list); 
 			fill_char_tab(buffer, 6, 0);
 			read(0, buffer, 6);
 		}

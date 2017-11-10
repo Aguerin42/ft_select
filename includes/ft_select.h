@@ -74,6 +74,7 @@ int				launch(int argc, char **argv, char *term, struct termios save);
 
 t_list			*fill_list(int argc, char **argv);
 void			print(t_list *elem);
+int				max_size_arg(t_list *list);
 void			change_select_list(t_list *elem);
 void			delete(void *elem, size_t size);
 void			set_print_list(t_list *elem);

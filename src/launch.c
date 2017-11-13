@@ -25,13 +25,17 @@ static int	key(char buffer[], t_list *list)
 	if (buffer[0] == 27 && !buffer[1] && !buffer[2])
 		return (-1);
 	if (buffer[0] == 127 && !buffer[1] && !buffer[2])
+	{
 		ft_lstiter_if(list, unset_print, is_oncursor);
+		if (!ft_lstany(list, is_printable))
+			return (-1);
+	}
 	else if (buffer[0] == 27 && buffer[1] == 91)
 	{
 		if (buffer[2] == 68)
-			ft_putstr_fd("gauche", 0);
+			find_previous(list);
 		else if (buffer[2] == 67)
-			ft_putstr_fd("droite", 0);
+			find_next(list);
 		else if (buffer[2] == 65)
 			ft_putstr_fd("haut", 0);
 		else if (buffer[2] == 66)
@@ -69,9 +73,12 @@ static int	ft_select(t_list *list, struct termios term)
 		while (key(buffer, list) >= 0)
 		{
 			ft_putstr_fd(tgetstr("ti", NULL), 0);
+			ft_putstr_fd(tgoto(tgetstr("cm", NULL),  0, 0), 0);
 			ft_lstiter(list, print);
 			size = window_size(0);
-			max_size = max_size_arg(list); 
+			max_size = max_size_arg(list);
+			if (max_size > size.ws_col)
+				ft_putendl_fd("small window...", 2);
 			fill_char_tab(buffer, 6, 0);
 			read(0, buffer, 6);
 		}

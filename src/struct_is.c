@@ -14,10 +14,15 @@
 **	\brief	Vérification de l'état du curseur de l'argument.
 */
 
-int		is_oncursor(t_select *elem)
+int		is_oncursor(void *elem)
 {
+	t_select	*select;
+
 	if (elem)
-		return (elem->cursor);
+	{
+		select = (t_select*)elem;
+		return (select->cursor);
+	}
 	return (0);
 }
 
@@ -25,10 +30,15 @@ int		is_oncursor(t_select *elem)
 **	\brief	Vérification de l'état d'affichage de l'argument.
 */
 
-int		is_printable(t_select *elem)
+int		is_printable(void *elem)
 {
+	t_select	*select;
+
 	if (elem)
-		return (elem->print);
+	{
+		select = (t_select*)elem;
+		return (select->print);
+	}
 	return (0);
 }
 

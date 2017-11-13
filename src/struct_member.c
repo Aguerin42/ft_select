@@ -26,10 +26,15 @@ void	set_print(t_select *elem)
 **	Modifie le flag de l'élément pour que l'argument ne puisse pas être affiché.
 */
 
-void	unset_print(t_select *elem)
+void	unset_print(void *elem)
 {
+	t_select	*select;
+
 	if (elem)
-		elem->print = 0;
+	{
+		select = (t_select*)elem;
+		select->print = 0;
+	}
 }
 
 /**
@@ -48,10 +53,15 @@ void	set_cursor(t_select *elem)
 **	\brief	Modification de l'état de sélection d'un élément
 */
 
-void	select_change(t_select *elem)
+void	select_change(void *elem)
 {
+	t_select	*select;
+
 	if (elem)
-		elem->selec = !elem->selec;
+	{
+		select = (t_select*)elem;
+		select->selec = !select->selec;
+	}
 }
 
 /**

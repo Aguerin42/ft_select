@@ -142,12 +142,12 @@ void	put_select_arg_list(t_list *elem)
 **	si celle-ci renvoie _vrai_, applique la fonction _f_ sur les maillons.
 */
 
-void	ft_lstiter_if(t_list *lst, void (*f)(t_select*), int (t)(t_select*))
+void	ft_lstiter_if(t_list *lst, void (*f)(void*), int (t)(void*))
 {
 	while (lst)
 	{
-		if (t((t_select*)lst->content))
-			f((t_select*)lst->content);
+		if (t(lst->content))
+			f(lst->content);
 		lst = lst->next;
 	}
 }

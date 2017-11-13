@@ -74,14 +74,20 @@ int				launch(int argc, char **argv, char *term, struct termios save);
 
 t_list			*fill_list(int argc, char **argv);
 void			print(t_list *elem);
-int				max_size_arg(t_list *list);
 void			change_select_list(t_list *elem);
 void			delete(void *elem, size_t size);
 void			set_print_list(t_list *elem);
 void			unset_print_list(t_list *elem);
 void			put_select_arg_list(t_list *elem);
-void			ft_lstiter_if(t_list *lst, void (*f)(t_select *e),\
-					int t(t_select *l));
+void			ft_lstiter_if(t_list *lst, void (*f)(void *e), int t(void *l));
+int				max_size_arg(t_list *list);
+
+/**
+**	list_move.c
+*/
+
+void			find_next(t_list *list);
+void			find_previous(t_list *list);
 
 /*
 **	struct.c
@@ -95,8 +101,8 @@ void			put_select_arg(t_select *select);
 **	struct_is.c
 */
 
-int				is_oncursor(t_select *elem);
-int				is_printable(t_select *elem);
+int				is_oncursor(void *elem);
+int				is_printable(void *elem);
 int				is_select(t_select *elem);
 
 /*
@@ -104,9 +110,9 @@ int				is_select(t_select *elem);
 */
 
 void			set_print(t_select *elem);
-void			unset_print(t_select *elem);
+void			unset_print(void *elem);
 void			set_cursor(t_select *elem);
-void			select_change(t_select *elem);
+void			select_change(void *elem);
 void			set_all_member(t_select *elem);
 
 #endif

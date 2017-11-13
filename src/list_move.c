@@ -8,12 +8,20 @@
 
 #include "ft_select.h"
 
+/*
+**	\brief	Renvoie la queue de liste.
+*/
+
 static t_list	*find_tail(t_list *list)
 {
 	while (list->next)
 		list = list->next;
 	return (list);
 }
+
+/*
+**	\brief	Renvoi de la position du curseur.
+*/
 
 static t_list	*find_cursor(t_list *list)
 {
@@ -22,6 +30,10 @@ static t_list	*find_cursor(t_list *list)
 	return (list);
 }
 
+/**
+**	\brief	Renvoie le prochain argument affichable.
+*/
+
 t_list	*find_printable(t_list *list)
 {
 	while (list && !(is_printable(list->content)))
@@ -29,23 +41,9 @@ t_list	*find_printable(t_list *list)
 	return (list);
 }
 
-void			find_previous(t_list *list)
-{
-	t_list	*tail;
-
-	tail = find_tail(list);
-	if (list)
-	{
-		if ((list = find_cursor(list)))
-		{
-			if (list->prev)
-				set_cursor(list->prev->content);
-			else
-				set_cursor(tail->content);
-			set_cursor(list->content);
-		}
-	}
-}
+/**
+**	\brief	Déplace le curseur sur le prochain argument.
+*/
 
 void			find_next(t_list *list)
 {
@@ -60,6 +58,28 @@ void			find_next(t_list *list)
 				set_cursor(list->next->content);
 			else
 				set_cursor(head->content);
+			set_cursor(list->content);
+		}
+	}
+}
+
+/**
+**	\brief	Déplace le curseur sur le précédent argument.
+*/
+
+void			find_previous(t_list *list)
+{
+	t_list	*tail;
+
+	tail = find_tail(list);
+	if (list)
+	{
+		if ((list = find_cursor(list)))
+		{
+			if (list->prev)
+				set_cursor(list->prev->content);
+			else
+				set_cursor(tail->content);
 			set_cursor(list->content);
 		}
 	}

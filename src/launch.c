@@ -18,7 +18,13 @@ static void	fill_char_tab(char tabl[], size_t size, char val)
 		tabl[i++] = val;
 }
 
-static int	key(char buffer[], t_list *list)
+/*
+** 	Direction : sens de direction du précédent déplacement.
+**	0 : gauche
+**	1 : droite
+*/
+
+static int	key(char buffer[], t_list *list, int *direction)
 {
 	if (!list)
 		return (-1);
@@ -27,27 +33,48 @@ static int	key(char buffer[], t_list *list)
 	if (buffer[0] == 127 && !buffer[1] && !buffer[2])
 	{
 		ft_lstiter_if(list, unset_print, is_oncursor);
+		*direction ? find_next(list) : find_previous(list);
 		if (!ft_lstany(list, is_printable))
 			return (-1);
 	}
 	else if (buffer[0] == 27 && buffer[1] == 91)
 	{
-		if (buffer[2] == 68)
+		if (buffer[2] == 68 || buffer[2] == 90)
+		{
 			find_previous(list);
+			*direction = 0;
+		}
 		else if (buffer[2] == 67)
+		{
 			find_next(list);
+			*direction = 1;
+		}
 		else if (buffer[2] == 65)
 			ft_putstr_fd("haut", 0);
 		else if (buffer[2] == 66)
 			ft_putstr_fd("bas", 0);
-	}		
+	}
+	else if (buffer[0] == 9 && !buffer[1] && !buffer[2])
+	{
+		find_next(list);
+		*direction = 1;
+	}
 	else if (buffer[0] == 10 && !buffer[1] && !buffer[2])
 	{
 		ft_lstiter(list, put_select_arg_list);
 		return (-1);
 	}
 	else if (buffer[0] == 32 && !buffer[1] && !buffer[2])
+	{
 		ft_lstiter_if(list, select_change, is_oncursor);
+		*direction ? find_next(list) : find_previous(list);
+	}
+	else if (buffer[0] == -61 && buffer[1] == -91 && !buffer[2])
+		ft_lstiter_if(list, select_arg, is_printable);
+	else if (buffer[0] == -30 && buffer[1] == -120 && buffer[2] == -126)
+		ft_lstiter_if(list, unselect_arg, is_printable);
+	else if (buffer[0] == -50 && buffer[1] == -87 && !buffer[2])
+		ft_lstiter_if(list, select_change, is_printable);
 	return (0);
 }
 
@@ -61,16 +88,18 @@ static int	key(char buffer[], t_list *list)
 static int	ft_select(t_list *list, struct termios term)
 {
 	int				max_size;
+	int				direction;
 	char			buffer[6];
 	struct winsize	size;
 
 	if (list)
 	{
+		direction = 1;
 		ft_putstr_fd(tgoto(tgetstr("cm", NULL),  0, 0), 0);
 		if ((tcsetattr(0, TCSADRAIN, &term)) == -1)
 			return (error_termbehav());
 		size = window_size(1);
-		while (key(buffer, list) >= 0)
+		while (key(buffer, list, &direction) >= 0)
 		{
 			ft_putstr_fd(tgetstr("ti", NULL), 0);
 			ft_putstr_fd(tgoto(tgetstr("cm", NULL),  0, 0), 0);

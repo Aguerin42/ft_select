@@ -114,5 +114,7 @@ void			unset_print(void *elem);
 void			set_cursor(t_select *elem);
 void			select_change(void *elem);
 void			set_all_member(t_select *elem);
+void			select_arg(void *elem);
+void			unselect_arg(void *elem);
 
 #endif

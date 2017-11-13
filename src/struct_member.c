@@ -68,20 +68,30 @@ void	select_change(void *elem)
 **	\brief	Sélection d'un argument
 */
 
-void	select_arg(t_select *elem)
+void	select_arg(void *elem)
 {
+	t_select	*select;
+
 	if (elem)
-		elem->selec = 1;
+	{
+		select = (t_select*)elem;
+		select->selec = 1;
+	}
 }
 
 /**
 **	\brief	Désélection d'un argument
 */
 
-void	unselect_arg(t_select *elem)
+void	unselect_arg(void *elem)
 {
+	t_select	*select;
+
 	if (elem)
-		elem->selec = 0;
+	{
+		select = (t_select*)elem;
+		select->selec = 0;
+	}
 }
 
 /**

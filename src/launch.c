@@ -61,7 +61,7 @@ static int	key(char buffer[], t_list *list, int *direction)
 	}
 	else if (buffer[0] == 10 && !buffer[1] && !buffer[2])
 	{
-		ft_lstiter(list, put_select_arg_list);
+		ft_lstiter_if(list, put_select_arg, is_select);
 		return (-1);
 	}
 	else if (buffer[0] == 32 && !buffer[1] && !buffer[2])

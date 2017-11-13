@@ -61,11 +61,17 @@ int			put_tselect(t_select *select)
 **	Affiche l'argument s'il est sélectionné et affichable, suivi d'un espace.
 */
 
-void		put_select_arg(t_select *select)
+void		put_select_arg(void *elem)
 {
-	if (select && select->print && select->selec)
+	t_select	*select;
+
+	if (elem)
 	{
-		ft_putstr_fd(select->arg, 1);
-		ft_putchar_fd(' ', 1);
+		select = (t_select*)elem;
+		if (select->print && select->selec)
+		{
+			ft_putstr_fd(select->arg, 1);
+			ft_putchar_fd(' ', 1);
+		}
 	}
 }

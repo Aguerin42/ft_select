@@ -95,47 +95,6 @@ void	print(t_list *elem)
 }
 
 /**
-**	\brief	Change l'état de sélection d'un argument
-*/
-
-void	change_select_list(t_list *elem)
-{
-	if (elem && elem->content)
-		select_change((t_select*)elem->content);
-}
-
-/**
-**	\brief	Fait appel à la fonction de modification du flag d'affichage
-**			de la structure *t_select* (set_print())
-*/
-
-void	set_print_list(t_list *elem)
-{
-	if (elem && elem->content)
-		set_print((t_select*)elem->content);
-}
-
-/**
-**	\brief	Fait appel à la fonction de modification du flag d'affichage
-**			de la structure *t_select* (unset_print())
-*/
-
-void	unset_print_list(t_list *elem)
-{
-	if (elem && elem->content)
-		unset_print((t_select*)elem->content);
-}
-
-/**
-**	\brief	Fait appel à la fonction d'affichage d'un argument sans formatage
-*/
-void	put_select_arg_list(t_list *elem)
-{
-	if (elem && elem->content)
-		put_select_arg(elem->content);
-}
-
-/**
 **	\brief	Application de fonction conditionnelle.
 **
 **	Applique la fonction _t_ sur chaque maillon de la liste et,

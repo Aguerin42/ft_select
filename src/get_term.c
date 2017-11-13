@@ -44,7 +44,7 @@ int	get_term(char *term)
 **
 **	window_size() récupère les dimensions de la fenêtre.
 **
-**	_init_ indique à la fonction si celle-ci doit faire appelle à [ioctl][]
+**	_init_ indique à la fonction si celle-ci doit faire appel à [ioctl][]
 **	pour initialiser la structure _winsize_ ou si elle doit seulement être retournée.
 **
 **	\param	init -	**0** pour retourner simplement la structure

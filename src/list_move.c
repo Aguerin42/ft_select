@@ -54,11 +54,11 @@ void			find_next(t_list *list)
 	{
 		if ((list = find_cursor(list)))
 		{
+			set_cursor(list->content);
 			if (list->next)
 				set_cursor(list->next->content);
 			else
 				set_cursor(head->content);
-			set_cursor(list->content);
 		}
 	}
 }
@@ -76,11 +76,11 @@ void			find_previous(t_list *list)
 	{
 		if ((list = find_cursor(list)))
 		{
+			set_cursor(list->content);
 			if (list->prev)
 				set_cursor(list->prev->content);
 			else
 				set_cursor(tail->content);
-			set_cursor(list->content);
 		}
 	}
 }

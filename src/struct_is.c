@@ -46,9 +46,14 @@ int		is_printable(void *elem)
 **	\brief	Vérification de l'état de sélection de l'argument.
 */
 
-int		is_select(t_select *elem)
+int		is_select(void *elem)
 {
+	t_select	*select;
+
 	if (elem)
-		return (elem->selec);
+	{
+		select = (t_select*)elem;
+		return (select->selec);
+	}
 	return (0);
 }

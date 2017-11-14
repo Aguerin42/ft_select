@@ -3,7 +3,9 @@
 **	\author	Alexis Guérin
 **	\date	9 novembre 2017
 **
-**	\brief	Fonctions de vérification des champs de la structure _t_select_
+**	\brief	Fonctions de vérification des champs de la structure `t_select`
+**
+**	Le paramètre `elem` doit être une structure `t_select` (`s_select`).
 **
 **	Les fonctions renvoient **1** ou **0**.
 */

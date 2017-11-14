@@ -8,7 +8,7 @@ OS = $(shell uname -s)
 CC = @gcc
 CFLAGS = -Wall -Werror -Wextra
 ifeq ($(OS), Linux)
-	CFLAGSUP = -Wno-sign-compare -Wno-empty-body -g -fsanitize=address
+	CFLAGSUP = -Wno-sign-compare -Wno-empty-body #-fsanitize=address
 else
 	CFLAGSUP = -Wno-sign-compare #-fsanitize=address
 endif
@@ -21,7 +21,7 @@ INC_FILE = ft_select.h
 
 # Fichiers sources
 SRC_PATH = src/
-SRC_FILE = main.c error.c error_init.c error_term.c get_term.c launch.c list.c list_move.c struct.c struct_is.c struct_member.c
+SRC_FILE = main.c error.c error_init.c error_term.c get_term.c launch.c list.c list_move.c struct.c struct_is.c struct_member.c window.c
 
 # Variables
 PROJET = ft_select

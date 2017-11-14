@@ -14,19 +14,20 @@
 # include <signal.h>
 # include <sys/ioctl.h>
 
-/*
-**	arg	- 		Argument donné à ft_select
-**	cursor -	flag indiquant si le curseur est sur l'élément ou non
-**	selec -		flag indiquant si l'élément est sélectionné ou non
-**	print -		flag indiquant si l'élément doit être affiché ou non
+/**
+**	\brief	Structure pour les informations d'un argument
+**
+**	La structure `t_select` contient le nom de l'argument et permet de connaître
+**	son état d'affichage :
+**	affichable ou non, (dé)sélectionné, sous le curseur ou non.
 */
 
 typedef struct	s_select
 {
-	char	*arg;
-	int		cursor;
-	int		selec;
-	int		print;
+	char	*arg;		/*!< Argument donné à ft_select */
+	int		cursor;		/*!< flag indiquant si le curseur est sur l'élément */
+	int		selec;		/*!< flag indiquant si l'élément est sélectionné */
+	int		print;		/*!< flag indiquant si l'élément doit être affiché */
 }				t_select;
 
 /**
@@ -75,13 +76,14 @@ int				launch(int argc, char **argv, char *term, struct termios save);
 t_list			*fill_list(int argc, char **argv);
 void			print(t_list *elem);
 void			delete(void *elem, size_t size);
-void			ft_lstiter_if(t_list *lst, void (*f)(void *e), int t(void *l));
+void			ft_lstiter_if(t_list *lst, void (*f)(void*), int (t)(void*));
 int				max_size_arg(t_list *list);
 
 /**
 **	list_move.c
 */
 
+t_list			*find_printable_right(t_list *list);
 void			find_next(t_list *list);
 void			find_previous(t_list *list);
 
@@ -112,5 +114,12 @@ void			select_change(void *elem);
 void			set_all_member(t_select *elem);
 void			select_arg(void *elem);
 void			unselect_arg(void *elem);
+
+/*
+**	window.c
+*/
+
+void			padding(t_list *list, struct winsize window, int size_max);
+void			print_message(char *msg, int fd);
 
 #endif

@@ -4,9 +4,10 @@
 **	\date	8 novembre 2017
 **
 **	\brief	Erreurs à afficher lorsque le lancement de _ft_select_
-**			est incorrect : argument manquant, environnement vide,
-			variable TERM manquante, ...
-**
+**			est incorrect.
+**	
+**	Message d'erreur lorsque _ft_select_ est lancé sans argument,
+ee
 **	Chacune de ces fonctions renvoie **-1**.
 */
 

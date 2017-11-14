@@ -3,7 +3,16 @@
 **	\author	Alexis Guérin
 **	\date	8 novembre 2017
 **
-**	\brief	Fonctions de gestion de la liste _t_list_.
+**	\brief	Fonctions de gestion de la liste `t_list`.
+**
+**	La liste de la **Libft** est utilisée pour contenir les arguments donnés à
+**	_ft_select_. Cette liste est composée de 3 champs :
+**	- `void		*content`, qui permet de stocker une donnée
+**	- `t_list	*next`, qui pointe vers l'élément suivant de la liste
+**	- `t_list	*prev`, qui pointe vers l'élément précédent de la liste
+**	
+**	Pour _ft_select_, `content` devra contenir une structure de type `t_select`
+**	(`s_select`).
 */
 
 #include "ft_select.h"

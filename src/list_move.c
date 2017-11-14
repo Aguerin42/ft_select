@@ -10,6 +10,8 @@
 
 /*
 **	\brief	Renvoie la queue de liste.
+**
+**	\param	list -	Tête de liste
 */
 
 static t_list	*find_tail(t_list *list)
@@ -20,7 +22,9 @@ static t_list	*find_tail(t_list *list)
 }
 
 /*
-**	\brief	Renvoi de la position du curseur.
+**	\brief	Renvoie la position du curseur.
+**
+**	\param	list -	Tête de liste
 */
 
 static t_list	*find_cursor(t_list *list)
@@ -32,55 +36,68 @@ static t_list	*find_cursor(t_list *list)
 
 /**
 **	\brief	Renvoie le prochain argument affichable.
+**
+**	\param	list -	Tête de liste
 */
 
-t_list	*find_printable(t_list *list)
+t_list			*find_printable_right(t_list *list)
 {
 	while (list && !(is_printable(list->content)))
 		list = list->next;
 	return (list);
 }
 
+/*
+**	\brief	Renvoie le précédent argument affichable.
+**
+**	\param	list -	Tête de liste
+*/
+
+static t_list		*find_printable_left(t_list *list)
+{
+	while (list && !is_printable(list->content))
+		list = list->prev;
+	return (list);
+}
+
 /**
 **	\brief	Déplace le curseur sur le prochain argument.
+**
+**	\param	list -	Tête de liste
 */
 
 void			find_next(t_list *list)
 {
 	t_list	*head;
 
-	head = list;
-	if (list)
+	head = find_printable_right(list);
+	if (list && (list = find_cursor(list)))
 	{
-		if ((list = find_cursor(list)))
-		{
+		set_cursor(list->content);
+		if (!(list = find_printable_right(list->next)))
+			list = head;
+		if (list)
 			set_cursor(list->content);
-			if (list->next)
-				set_cursor(list->next->content);
-			else
-				set_cursor(head->content);
-		}
 	}
 }
 
 /**
 **	\brief	Déplace le curseur sur le précédent argument.
+**
+**	\param	list -	Tête de liste
 */
 
 void			find_previous(t_list *list)
 {
 	t_list	*tail;
 
-	tail = find_tail(list);
-	if (list)
+	tail = find_printable_left(find_tail(list));
+	if (list && (list = find_cursor(list)))
 	{
-		if ((list = find_cursor(list)))
-		{
+		set_cursor(list->content);
+		if (!(list = find_printable_left(list->prev)))
+			list = tail;
+		if (list)
 			set_cursor(list->content);
-			if (list->prev)
-				set_cursor(list->prev->content);
-			else
-				set_cursor(tail->content);
-		}
 	}
 }

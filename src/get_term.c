@@ -45,12 +45,13 @@ int	get_term(char *term)
 **	window_size() récupère les dimensions de la fenêtre.
 **
 **	_init_ indique à la fonction si celle-ci doit faire appel à [ioctl][]
-**	pour initialiser la structure _winsize_ ou si elle doit seulement être retournée.
+**	pour initialiser la structure _[winsize][]_ ou si elle doit seulement être retournée.
 **
 **	\param	init -	**0** pour retourner simplement la structure
 **					ou **non nul** pour initialiser la structure et la retourner.
 **
 **	[ioctl]: http://man7.org/linux/man-pages/man2/ioctl.2.html
+**	[winsize]: http://www.delorie.com/djgpp/doc/libc/libc_495.html
 */
 
 struct winsize	window_size(int init)

@@ -62,6 +62,7 @@ static int	key(char buffer[], t_list *list, int *direction)
 	else if (buffer[0] == 10 && !buffer[1] && !buffer[2])
 	{
 		ft_lstiter_if(list, put_select_arg, is_select);
+		ft_putendl_fd("", 0);
 		return (-1);
 	}
 	else if (buffer[0] == 32 && !buffer[1] && !buffer[2])
@@ -90,7 +91,7 @@ static int	ft_select(t_list *list, struct termios term)
 	int				max_size;
 	int				direction;
 	char			buffer[6];
-	struct winsize	size;
+	struct winsize	window;
 
 	if (list)
 	{
@@ -98,16 +99,18 @@ static int	ft_select(t_list *list, struct termios term)
 		ft_putstr_fd(tgoto(tgetstr("cm", NULL),  0, 0), 0);
 		if ((tcsetattr(0, TCSADRAIN, &term)) == -1)
 			return (error_termbehav());
-		size = window_size(1);
+		window  = window_size(1);
+		fill_char_tab(buffer, 6, 0);
 		while (key(buffer, list, &direction) >= 0)
 		{
-			ft_putstr_fd(tgetstr("ti", NULL), 0);
-			ft_putstr_fd(tgoto(tgetstr("cm", NULL),  0, 0), 0);
-			ft_lstiter(list, print);
-			size = window_size(0);
-			max_size = max_size_arg(list);
-			if (max_size > size.ws_col)
-				ft_putendl_fd("small window...", 2);
+			window = window_size(0);
+			if (window.ws_col < 20 || window.ws_row < 10)
+				print_message("The window is too small...", 2);
+			else
+			{
+				max_size = max_size_arg(list);
+				padding(list, window, max_size);
+			}
 			fill_char_tab(buffer, 6, 0);
 			read(0, buffer, 6);
 		}

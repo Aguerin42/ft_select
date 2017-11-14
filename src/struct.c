@@ -3,15 +3,15 @@
 **	\author	Alexis Guérin
 **	\date	8 novembre 2017
 **
-**	\brief	Fonctions de gestion de la structure *t_select*.
+**	\brief	Fonctions de gestion de la structure `t_select` (`s_select`).
 */
 
 #include "ft_select.h"
 
 /**
-**	\brief	Libération de mémoire pour la structure *t_select*.
+**	\brief	Libération de mémoire pour la structure `t_select`.
 **
-**	del_tselect() libère la mémoire allouée pour la structure *t_select*
+**	del_tselect() libère la mémoire allouée pour la structure `t_select`
 **	et met son pointeur à NULL.
 **
 **	\param	struc - Structure dont la mémoire doit être libérée.
@@ -32,10 +32,10 @@ void		del_tselect(t_select **struc)
 /**
 **	\brief	Affichage de l'argument contenu dans la structure.
 **
-**	\param	select -	Structure dont l'argument _arg_ doit être affiché.
+**	\param	select -	Structure dont l'argument `arg` doit être affiché.
 **
 **	\return	**Nombre** de caractères affichés à l'écran
-**			ou **0** si _select_ est NULL (ou que _arg_ est NULL).
+**			ou **0** si `select` est NULL (ou que `arg` est NULL).
 */
 
 int			put_tselect(t_select *select)

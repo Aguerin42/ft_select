@@ -3,7 +3,9 @@
 **	\author	Alexis Guérin
 **	\date	8 novembre 2017
 **
-**	\brief	Fonctions de modification des champs de la structure _t_select_.
+**	\brief	Fonctions de modification des champs de la structure `t_select`.
+**
+**	Le paramètre `elem` doit être une structure `t_select` (`s_select`).
 */
 
 #include "ft_select.h"
@@ -95,7 +97,7 @@ void	unselect_arg(void *elem)
 }
 
 /**
-**	\brief	Initialisation des champs de la structure _t_select_
+**	\brief	Initialisation des champs de la structure `t_select`
 */
 
 void	set_all_member(t_select *elem)

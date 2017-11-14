@@ -30,7 +30,9 @@ static int	key(char buffer[], t_list *list, int *direction)
 		return (-1);
 	if (buffer[0] == 27 && !buffer[1] && !buffer[2])
 		return (-1);
-	if (buffer[0] == 127 && !buffer[1] && !buffer[2])
+	if ((buffer[0] == 127 && !buffer[1] && !buffer[2]) ||
+		(buffer[0] == 27 && buffer[1] == 91 && buffer[2] == 51
+		 && buffer[3] == 126 && !buffer[4] && !buffer[5]))
 	{
 		ft_lstiter_if(list, unset_print, is_oncursor);
 		*direction ? find_next(list) : find_previous(list);
@@ -88,7 +90,6 @@ static int	key(char buffer[], t_list *list, int *direction)
 
 static int	ft_select(t_list *list, struct termios term)
 {
-	int				max_size;
 	int				direction;
 	char			buffer[6];
 	struct winsize	window;
@@ -103,14 +104,8 @@ static int	ft_select(t_list *list, struct termios term)
 		fill_char_tab(buffer, 6, 0);
 		while (key(buffer, list, &direction) >= 0)
 		{
-			window = window_size(0);
-			if (window.ws_col < 20 || window.ws_row < 10)
-				print_message("The window is too small...", 2);
-			else
-			{
-				max_size = max_size_arg(list);
-				padding(list, window, max_size);
-			}
+			window = window_size(0);	
+			padding(list, window);
 			fill_char_tab(buffer, 6, 0);
 			read(0, buffer, 6);
 		}

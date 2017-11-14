@@ -119,7 +119,8 @@ void			unselect_arg(void *elem);
 **	window.c
 */
 
-void			padding(t_list *list, struct winsize window, int size_max);
+int				nb_line_tot(t_list *list, int size);
+void			padding(t_list *list, struct winsize window);
 void			print_message(char *msg, int fd);
 
 #endif

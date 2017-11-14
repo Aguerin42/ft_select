@@ -46,7 +46,7 @@ static void				catch_signal(int signal)
 	else if (signal == SIGWINCH)
 	{
 		list = get_list(0, NULL);
-		padding(list, window_size(1), max_size_arg(list));
+		padding(list, window_size(1));
 	}
 }
 

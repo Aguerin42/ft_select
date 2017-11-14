@@ -8,14 +8,59 @@
 
 #include "ft_select.h"
 
-static int	nb_line(t_select *elem, int size)
+static int	nb_line(void *elem, int size)
 {
-	int		nb;
+	int			nb;
+	t_select	*select;
 	
-	if (elem && elem->arg && size > 0)
-		if ((nb = ft_strlen(elem->arg)) > 0 && (nb > size))
-			return (nb/size + 1);
+	if (elem)
+	{
+		select = (t_select*)elem;
+		if (select && select->arg && size > 0)
+			if ((nb = ft_strlen(select->arg)) > 0 && (nb > size))
+				return (nb/size + 1);
+	}
 	return (1);
+}
+
+/**
+**	\brief	Calcul du nombre de lignes nécessaires à l'affichage
+**
+**	La fonction calcule, en fonction des arguments affichables et de la taille
+**	de la fenêtre, le nombre de lignes nécessaires pour pouvoir afficher tous
+**	les arguments.
+**
+**	\param	list -		liste d'arguments
+**	\param	win_size -	taille de la fenêtre en colonnes
+**
+**	\return	**0** si `list` est `NULL`
+**			ou un **nombre strictement positif** sinon
+*/
+
+int		nb_line_tot(t_list *list, int win_size)
+{
+	int	i;
+
+	i = 0;
+	while (list && list->content)
+	{
+		i += nb_line(list->content, win_size);
+		list = list->next;
+	}
+	return (i);
+}
+
+
+/**
+**	\brief	Nombre de colonnes possibles dans la fenêtre
+**
+**	Renvoie le nombre de colonnes qu'il est possible d'afficher dans la fenêtre
+**	en fonction de sa taille et de celle du plus grand argument.
+*/
+
+int			nb_column(struct winsize window, int max_size)
+{
+	return (max_size ? (window.ws_col / (max_size + 1)) : 0);
 }
 
 /**
@@ -24,29 +69,33 @@ static int	nb_line(t_select *elem, int size)
 **	\param	list -		liste des arguments
 **	\param	window -	structure contenant les informations sur les dimensions
 **						de la fenêtre
-**	\param	size_max -	taille du plus grand argument
 */
 
-void		padding(t_list *list, struct winsize window, int size_max)
+void		padding(t_list *list, struct winsize window)
 {
 	int	line;
 	int	column;
+	int	max_size;
 
 	line = 0;
 	column = 0;
+	max_size = max_size_arg(list);
 	ft_putstr_fd(tgetstr("ti", NULL), 0);
-	while (list)
+	if (max_size > window.ws_col &&
+			nb_line_tot(list, window.ws_col) > window.ws_row - 1)
+		print_message("The window is too small...", 2);
+	else
 	{
-		if ((list = find_printable_right(list)))
+		while ((list = find_printable_right(list)))
 		{
 			ft_putstr_fd(tgoto(tgetstr("cm", NULL), column, line), 0);
 			put_tselect((t_select*)list->content);
-			if (size_max >= window.ws_col)
+			if (max_size >= window.ws_col)
 				line += nb_line((t_select*)list->content, window.ws_col);
 			else
 			{
-				column += size_max + 1;
-				if (column + size_max + 1 > window.ws_col)
+				column += max_size + 1;
+				if (column + max_size > window.ws_col)
 				{
 					column = 0;
 					line++;
@@ -54,12 +103,12 @@ void		padding(t_list *list, struct winsize window, int size_max)
 			}
 			list = list->next;
 		}
+		ft_putendl("");
 	}
-	ft_putendl_fd("", 0);
 }
 
 /**
-**	Affichage de message après effaçage de l'écran
+**	Affichage de message après effacement de l'écran
 **
 **	Affiche le message `msg` sur la sortie `fd`, après que le curseur ait été
 **	positionné en haut à gauche de la fenêtre et que celle-ci ait été effacée.

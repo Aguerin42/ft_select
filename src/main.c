@@ -31,6 +31,8 @@ static struct termios	term_default(int set_default, int *ret)
 
 static void				catch_signal(int signal)
 {
+	t_list	*list;
+
 	if (signal == SIGINT)
 	{
 		term_default(1, NULL);
@@ -42,8 +44,10 @@ static void				catch_signal(int signal)
 		exit(0);
 	}
 	else if (signal == SIGWINCH)
-		window_size(1);
-	ft_putnbrl(signal);
+	{
+		list = get_list(0, NULL);
+		padding(list, window_size(1), max_size_arg(list));
+	}
 }
 
 static void				sig(void)

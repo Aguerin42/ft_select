@@ -124,7 +124,7 @@ static int	ft_select(t_list *list, struct termios term)
 **
 **	launch() est appelée depuis le main()
 **	et fait appel aux différentes fonctions de copie des arguments,
-**	d'initialisation de la structure *t_select* et de vérification du terminal.
+**	d'initialisation de la structure `t_select` et de vérification du terminal.
 **
 **	\param	argc -	Nombre d'argument
 **	\param	argv -  Tableau d'arguments (incluant le nom de l'exécutable)
@@ -146,7 +146,7 @@ int	launch(int argc, char **argv, char *term, struct termios save)
 		if (get_term(term))
 			return (-1);
 		term_t = set_term(save);
-		if (!(list = fill_list(argc, argv)))
+		if (!(list = get_list(argc, argv)))
 			return (error_alloc());
 		set_cursor((t_select*)list->content);
 		ret = ft_select(list, term_t);

@@ -73,7 +73,7 @@ int				launch(int argc, char **argv, char *term, struct termios save);
 **	list.c
 */
 
-t_list			*fill_list(int argc, char **argv);
+t_list			*get_list(int argc, char **argv);
 void			print(t_list *elem);
 void			delete(void *elem, size_t size);
 void			ft_lstiter_if(t_list *lst, void (*f)(void*), int (t)(void*));

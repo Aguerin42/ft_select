@@ -21,6 +21,8 @@
 **	\brief	Création de la liste d'argument
 **
 **	Crée une liste composée des arguments données en entrée de _ft_select_
+**	La liste est `static`, si celle-ci a déjà été créée elle est simplement
+**	retournée par la fonction.
 **
 **	\param	argc -	Nombre d'argument
 **	\param	argv -	Tableau d'argument (incluant le nom de l'éxécutable
@@ -28,13 +30,12 @@
 **	\return	La **liste** d'argument ou **NULL** en cas d'échec.
 */
 
-t_list	*fill_list(int argc, char **argv)
+t_list	*get_list(int argc, char **argv)
 {
-	t_select	*struc;
-	t_list		*list;
+	static t_list	*list = NULL;
+	t_select		*struc;
 
-	list = NULL;
-	if (argv)
+	if (argv && !list)
 	{
 		struc = (t_select*)ft_memalloc(sizeof(t_select));
 		while (--argc > 0)

@@ -95,7 +95,7 @@ void		padding(t_list *list, struct winsize window)
 			else
 			{
 				column += max_size + 1;
-				if (column + max_size > window.ws_col)
+				if (column + max_size >= window.ws_col)
 				{
 					column = 0;
 					line++;

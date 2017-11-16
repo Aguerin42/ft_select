@@ -22,8 +22,6 @@ static void	fill_char_tab(char tabl[], size_t size, char val)
 ** 	Direction : sens de direction du précédent déplacement.
 **	0 : gauche
 **	1 : droite
-**	2 : haut
-**	3 : bas
 */
 
 static int	key(char buffer[], t_list *list, int *direction, struct winsize win)
@@ -37,29 +35,30 @@ static int	key(char buffer[], t_list *list, int *direction, struct winsize win)
 		 && buffer[3] == 126 && !buffer[4] && !buffer[5]))
 	{
 		ft_lstiter_if(list, unset_print, is_oncursor);
-		*direction ? find_next(list) : find_previous(list);
+		*direction ? move_right(list) : move_left(list);
 		if (!ft_lstany(list, is_printable))
 			return (-1);
 	}
 	else if (buffer[0] == 27 && buffer[1] == 91)
 	{
 		if (buffer[2] == 68 || buffer[2] == 90)
-			*direction = find_previous(list);
+			*direction = move_left(list);
 		else if (buffer[2] == 67)
-			*direction = find_next(list);
+			*direction = move_right(list);
 		else if (buffer[2] == 65)
-			*direction = find_up(list, win);
+			move_up(list, win);
 		else if (buffer[2] == 66)
-			*direction = find_down(list, win);
+			move_down(list, win);
 		else if (buffer[2] == 72)
-		find_first(list);
+			move_first(list);
 		else if (buffer[2] == 70)
-			find_last(list);
+			move_last(list);
 	}
 	else if (buffer[0] == 9 && !buffer[1] && !buffer[2])
-		*direction = find_next(list);
+		*direction = move_right(list);
 	else if (buffer[0] == 10 && !buffer[1] && !buffer[2])
 	{
+		ft_putstr_fd(tgetstr("cl", NULL), 0);
 		ft_lstiter_if(list, put_select_arg, is_select);
 		ft_putendl_fd("", 0);
 		return (-1);
@@ -68,13 +67,9 @@ static int	key(char buffer[], t_list *list, int *direction, struct winsize win)
 	{
 		ft_lstiter_if(list, select_change, is_oncursor);
 		if (*direction == 0)
-			find_previous(list);
-		else if (*direction == 2)
-			find_up(list, win);
-		else if (*direction == 3)
-			find_down(list, win);
+			move_left(list);
 		else
-			find_next(list);
+			move_right(list);
 	}
 	else if (buffer[0] == 65 && !buffer[1] && !buffer[2])
 		ft_lstiter_if(list, select_arg, is_printable);
@@ -96,20 +91,19 @@ static int	ft_select(t_list *list, struct termios term)
 {
 	int				direction;
 	char			buffer[6];
-	struct winsize	window;
 
 	if (list)
 	{
 		direction = 1;
+		ft_putstr_fd(tgetstr("cl", NULL), 0);
 		ft_putstr_fd(tgoto(tgetstr("cm", NULL),  0, 0), 0);
 		if ((tcsetattr(0, TCSADRAIN, &term)) == -1)
 			return (error_termbehav());
-		window  = window_size(1);
+		window_size(1);
 		fill_char_tab(buffer, 6, 0);
-		while (key(buffer, list, &direction, window) >= 0)
+		while (key(buffer, list, &direction, window_size(0)) >= 0)
 		{
-			window = window_size(0);	
-			padding(list, window);
+			padding(list, window_size(0));
 			fill_char_tab(buffer, 6, 0);
 			read(0, buffer, 6);
 		}

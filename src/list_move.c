@@ -61,12 +61,82 @@ static t_list		*find_printable_left(t_list *list)
 }
 
 /**
+**	\brief	Déplace le curseur sur l'élément du dessus
+*/
+
+int					find_up(t_list *list, struct winsize win)
+{
+	int		column;
+	int		last_line;
+	t_list	*tail;
+
+	tail = find_tail(list);
+	if (list)
+	{
+		column = nb_column(win, max_size_arg(list));
+		last_line = ft_lstcount_if(list, is_printable) % (column ? column : 1);
+		list = find_cursor(list);
+		set_cursor(list->content);
+		if (!list->prev)
+			list = tail;
+		else
+		{
+			while (column--)
+			{
+				if (!(list = find_printable_left(list->prev)))
+				{
+					list = tail;
+					column += 1;
+				}
+			}
+		}
+		set_cursor(list->content);
+	}
+	return (2);
+}
+
+/**
+**	\brief	Déplace le curseur sur l'élément du dessous
+*/
+
+int					find_down(t_list *list, struct winsize win)
+{
+	int		column;
+	int		last_line;
+	t_list	*head;
+
+	head = list;
+	if (list)
+	{
+		column = nb_column(win, max_size_arg(list));
+		last_line = ft_lstcount_if(list, is_printable) % (column ? column : 1);
+		list = find_cursor(list);
+		set_cursor(list->content);
+		if (!list->next)
+			list = head;
+		else
+		{
+			while (column--)
+			{
+				if (!(list = find_printable_right(list->next)))
+				{
+					list = head;
+					column += 1;
+				}
+			}
+		}
+		set_cursor(list->content);
+	}
+	return (3);
+}
+
+/**
 **	\brief	Déplace le curseur sur le prochain argument.
 **
 **	\param	list -	Tête de liste
 */
 
-void			find_next(t_list *list)
+int				find_next(t_list *list)
 {
 	t_list	*head;
 
@@ -79,6 +149,7 @@ void			find_next(t_list *list)
 		if (list)
 			set_cursor(list->content);
 	}
+	return (1);
 }
 
 /**
@@ -87,7 +158,7 @@ void			find_next(t_list *list)
 **	\param	list -	Tête de liste
 */
 
-void			find_previous(t_list *list)
+int				find_previous(t_list *list)
 {
 	t_list	*tail;
 
@@ -100,4 +171,5 @@ void			find_previous(t_list *list)
 		if (list)
 			set_cursor(list->content);
 	}
+	return (0);
 }

@@ -24,7 +24,7 @@ static void	fill_char_tab(char tabl[], size_t size, char val)
 **	1 : droite
 */
 
-static int	key(char buffer[], t_list *list, int *direction)
+static int	key(char buffer[], t_list *list, int *direction, struct winsize win)
 {
 	if (!list)
 		return (-1);
@@ -42,19 +42,13 @@ static int	key(char buffer[], t_list *list, int *direction)
 	else if (buffer[0] == 27 && buffer[1] == 91)
 	{
 		if (buffer[2] == 68 || buffer[2] == 90)
-		{
-			find_previous(list);
-			*direction = 0;
-		}
+			*direction = find_previous(list);
 		else if (buffer[2] == 67)
-		{
-			find_next(list);
-			*direction = 1;
-		}
+			*direction = find_next(list);
 		else if (buffer[2] == 65)
-			ft_putstr_fd("haut", 0);
+			*direction = find_up(list, win);
 		else if (buffer[2] == 66)
-			ft_putstr_fd("bas", 0);
+			*direction = find_down(list, win);
 	}
 	else if (buffer[0] == 9 && !buffer[1] && !buffer[2])
 	{
@@ -70,7 +64,15 @@ static int	key(char buffer[], t_list *list, int *direction)
 	else if (buffer[0] == 32 && !buffer[1] && !buffer[2])
 	{
 		ft_lstiter_if(list, select_change, is_oncursor);
-		*direction ? find_next(list) : find_previous(list);
+		if (*direction == 0)
+			find_previous(list);
+		else if (*direction == 2)
+			find_up(list, win);
+		else if (*direction == 3)
+			find_down(list, win);
+		else
+			find_next(list);
+
 	}
 	else if (buffer[0] == -61 && buffer[1] == -91 && !buffer[2])
 		ft_lstiter_if(list, select_arg, is_printable);
@@ -102,7 +104,7 @@ static int	ft_select(t_list *list, struct termios term)
 			return (error_termbehav());
 		window  = window_size(1);
 		fill_char_tab(buffer, 6, 0);
-		while (key(buffer, list, &direction) >= 0)
+		while (key(buffer, list, &direction, window) >= 0)
 		{
 			window = window_size(0);	
 			padding(list, window);

@@ -29,19 +29,45 @@ static struct termios	term_default(int set_default, int *ret)
 	return (term_default);
 }
 
+void	msg(int t)
+{
+	if (t)
+		;
+	ft_putendl("TRUC");
+	ft_putendl("TRUC");
+	ft_putendl("TRUC");
+	ft_putendl("TRUC");
+	ft_putendl("TRUC");
+	ft_putendl("TRUC");
+	ft_putendl("TRUC");
+	ft_putendl("TRUC");
+	ft_putendl("TRUC");
+	ft_putendl("TRUC");
+	ft_putendl("TRUC");
+	ft_putendl("TRUC");
+	ft_putendl("TRUC");
+	ft_putendl("TRUC");
+	ft_putendl("TRUC");
+}
+
 static void				catch_signal(int signal)
 {
-	t_list	*list;
-
+	t_list				*list;
+	struct sigaction	action;
+	
 	if (signal == SIGINT)
 	{
 		term_default(1, NULL);
+		list = get_list(0, NULL);
+		ft_lstdel(&list, delete);
 		exit(1);
 	}
 	else if (signal == SIGTSTP)
 	{
-		ft_putendl_fd("Ctrl-z", 0);
-		exit(0);
+		action.sa_handler = msg;
+		action.sa_flags = 0;
+		term_default(1, NULL);
+		sigaction(SIGTSTP, &action, NULL);
 	}
 	else if (signal == SIGWINCH)
 	{

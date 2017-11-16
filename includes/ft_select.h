@@ -84,8 +84,10 @@ int				max_size_arg(t_list *list);
 */
 
 t_list			*find_printable_right(t_list *list);
-void			find_next(t_list *list);
-void			find_previous(t_list *list);
+int				find_up(t_list *list, struct winsize win);
+int				find_down(t_list *list, struct winsize win);
+int				find_next(t_list *list);
+int				find_previous(t_list *list);
 
 /*
 **	struct.c
@@ -120,6 +122,7 @@ void			unselect_arg(void *elem);
 */
 
 int				nb_line_tot(t_list *list, int size);
+int				nb_column(struct winsize window, int max_size);
 void			padding(t_list *list, struct winsize window);
 void			print_message(char *msg, int fd);
 

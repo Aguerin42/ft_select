@@ -37,7 +37,7 @@ static int	nb_line(void *elem, int size)
 **			ou un **nombre strictement positif** sinon
 */
 
-int		nb_line_tot(t_list *list, int win_size)
+int			nb_line_tot(t_list *list, int win_size)
 {
 	int	i;
 

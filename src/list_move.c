@@ -60,6 +60,32 @@ static t_list		*find_printable_left(t_list *list)
 	return (list);
 }
 
+void				find_first(t_list *list)
+{
+	t_list	*head;
+
+	if (list)
+	{
+		head = list;
+		list = find_cursor(list);
+		set_cursor(list->content);
+		set_cursor(head->content);
+	}
+}
+
+void				find_last(t_list *list)
+{
+	t_list	*tail;
+
+	if (list)
+	{
+		tail = find_tail(list);
+		list = find_cursor(list);
+		set_cursor(list->content);
+		set_cursor(tail->content);
+	}
+}
+
 /**
 **	\brief	Déplace le curseur sur l'élément du dessus
 */

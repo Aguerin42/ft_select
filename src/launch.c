@@ -22,6 +22,8 @@ static void	fill_char_tab(char tabl[], size_t size, char val)
 ** 	Direction : sens de direction du précédent déplacement.
 **	0 : gauche
 **	1 : droite
+**	2 : haut
+**	3 : bas
 */
 
 static int	key(char buffer[], t_list *list, int *direction, struct winsize win)
@@ -49,12 +51,13 @@ static int	key(char buffer[], t_list *list, int *direction, struct winsize win)
 			*direction = find_up(list, win);
 		else if (buffer[2] == 66)
 			*direction = find_down(list, win);
+		else if (buffer[2] == 72)
+		find_first(list);
+		else if (buffer[2] == 70)
+			find_last(list);
 	}
 	else if (buffer[0] == 9 && !buffer[1] && !buffer[2])
-	{
-		find_next(list);
-		*direction = 1;
-	}
+		*direction = find_next(list);
 	else if (buffer[0] == 10 && !buffer[1] && !buffer[2])
 	{
 		ft_lstiter_if(list, put_select_arg, is_select);
@@ -72,7 +75,6 @@ static int	key(char buffer[], t_list *list, int *direction, struct winsize win)
 			find_down(list, win);
 		else
 			find_next(list);
-
 	}
 	else if (buffer[0] == -61 && buffer[1] == -91 && !buffer[2])
 		ft_lstiter_if(list, select_arg, is_printable);

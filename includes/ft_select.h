@@ -84,6 +84,8 @@ int				max_size_arg(t_list *list);
 */
 
 t_list			*find_printable_right(t_list *list);
+void			find_last(t_list *list);
+void			find_first(t_list *list);
 int				find_up(t_list *list, struct winsize win);
 int				find_down(t_list *list, struct winsize win);
 int				find_next(t_list *list);

@@ -76,11 +76,11 @@ static int	key(char buffer[], t_list *list, int *direction, struct winsize win)
 		else
 			find_next(list);
 	}
-	else if (buffer[0] == -61 && buffer[1] == -91 && !buffer[2])
+	else if (buffer[0] == 65 && !buffer[1] && !buffer[2])
 		ft_lstiter_if(list, select_arg, is_printable);
-	else if (buffer[0] == -30 && buffer[1] == -120 && buffer[2] == -126)
+	else if (buffer[0] == 68 && !buffer[1] && !buffer[2])
 		ft_lstiter_if(list, unselect_arg, is_printable);
-	else if (buffer[0] == -50 && buffer[1] == -87 && !buffer[2])
+	else if (buffer[0] == 90 && !buffer[1] && !buffer[2])
 		ft_lstiter_if(list, select_change, is_printable);
 	return (0);
 }

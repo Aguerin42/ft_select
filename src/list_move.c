@@ -100,19 +100,14 @@ int					move_up(t_list *list, struct winsize win)
 	if (list)
 	{
 		origin = find_cursor(list);
-		if (!origin->prev)
-			move_last(list);
-		else
+		column = nb_column(win, max_size_arg(list));
+		list = origin;
+		while (list->prev && (column-- > 0))
+			list = find_printable_left(list->prev);
+		if (column <= 0)
 		{
-			list = origin;
-			column = nb_column(win, max_size_arg(list));
-			while (list->prev && (column-- > 0))
-				list = find_printable_left(list->prev);
-			if (column <= 0)
-			{
-				set_cursor(origin->content);
-				set_cursor(list->content);
-			}
+			set_cursor(origin->content);
+			set_cursor(list->content);
 		}
 	}
 	return (0);
@@ -127,22 +122,17 @@ int				move_down(t_list *list, struct winsize win)
 	int		column;
 	t_list	*origin;
 
-	if (list && list->next)
+	if (list)
 	{
 		origin = find_cursor(list);
-		if (!origin->next)
-			move_first(list);
-		else
+		column = nb_column(win, max_size_arg(list));
+		list = origin;
+		while (list->next && (column-- > 0))
+			list = find_printable_right(list->next);
+		if (column <= 0)
 		{
-			list = origin;
-			column = nb_column(win, max_size_arg(list));
-			while (list->next && (column-- > 0))
-				list = find_printable_right(list->next);
-			if (column <= 0)
-			{
-				set_cursor(origin->content);
-				set_cursor(list->content);
-			}
+			set_cursor(origin->content);
+			set_cursor(list->content);
 		}
 	}
 	return (0);

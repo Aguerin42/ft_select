@@ -80,7 +80,7 @@ void		padding(t_list *list, struct winsize window)
 	line = 0;
 	column = 0;
 	max_size = max_size_arg(list);
-	ft_putstr_fd(tgetstr("ti", NULL), 0);
+	ft_putstr_fd(tgetstr("cl", NULL), 0);
 	if (max_size > window.ws_col &&
 			nb_line_tot(list, window.ws_col) > window.ws_row - 1)
 		print_message("The window is too small...", 2);
@@ -116,7 +116,7 @@ void		padding(t_list *list, struct winsize window)
 
 void		print_message(char *msg, int fd)
 {
-	ft_putstr_fd(tgetstr("ti", NULL), 0);
+	ft_putstr_fd(tgetstr("cl", NULL), 0);
 	ft_putstr_fd(tgoto(tgetstr("cm", NULL),  0, 0), 0);
 	ft_putendl_fd(msg, fd);
 }

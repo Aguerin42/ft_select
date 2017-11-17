@@ -58,7 +58,7 @@ static int	key(char buffer[], t_list *list, int *direction, struct winsize win)
 		*direction = move_right(list);
 	else if (buffer[0] == 10 && !buffer[1] && !buffer[2])
 	{
-		ft_putstr_fd(tgetstr("cl", NULL), 0);
+		ft_putstr_fd(tgetstr("te", NULL), 0);
 		ft_lstiter_if(list, put_select_arg, is_select);
 		ft_putendl_fd("", 0);
 		return (-1);
@@ -95,7 +95,7 @@ static int	ft_select(t_list *list, struct termios term)
 	if (list)
 	{
 		direction = 1;
-		ft_putstr_fd(tgetstr("cl", NULL), 0);
+		ft_putstr_fd(tgetstr("ti", NULL), 0);
 		ft_putstr_fd(tgoto(tgetstr("cm", NULL),  0, 0), 0);
 		if ((tcsetattr(0, TCSADRAIN, &term)) == -1)
 			return (error_termbehav());

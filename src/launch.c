@@ -18,6 +18,22 @@ static void	fill_char_tab(char tabl[], size_t size, char val)
 		tabl[i++] = val;
 }
 
+static void		select_part(t_list *list)
+{
+	while (list && !is_oncursor(list->content))
+		list = list->next;
+	if (list)
+	{
+		select_arg((t_select*)list->content);
+		list = list->prev;
+	}
+	while (list && !is_select(list->content))
+	{
+		select_arg((t_select*)list->content);
+		list = list->prev;
+	}
+}
+
 /*
 ** 	Direction : sens de direction du précédent déplacement.
 **	0 : gauche
@@ -75,6 +91,8 @@ static int	key(char buffer[], t_list *list, int *direction, struct winsize win)
 		ft_lstiter_if(list, select_arg, is_printable);
 	else if (buffer[0] == 68 && !buffer[1] && !buffer[2])
 		ft_lstiter_if(list, unselect_arg, is_printable);
+	else if (buffer[0] == 83 && !buffer[1] && !buffer[2])
+		select_part(list);
 	else if (buffer[0] == 90 && !buffer[1] && !buffer[2])
 		ft_lstiter_if(list, select_change, is_printable);
 	return (0);

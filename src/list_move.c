@@ -110,7 +110,7 @@ int					move_up(t_list *list, struct winsize win)
 			set_cursor(list->content);
 		}
 	}
-	return (0);
+	return (2);
 }
 
 /**
@@ -135,7 +135,7 @@ int				move_down(t_list *list, struct winsize win)
 			set_cursor(list->content);
 		}
 	}
-	return (0);
+	return (3);
 }
 
 /**

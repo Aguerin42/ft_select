@@ -51,7 +51,10 @@ static int	key(char buffer[], t_list *list, int *direction, struct winsize win)
 		 && buffer[3] == 126 && !buffer[4] && !buffer[5]))
 	{
 		ft_lstiter_if(list, unset_print, is_oncursor);
-		*direction ? move_right(list) : move_left(list);
+		if (*direction == 0)
+			move_left(list);
+		else if (*direction == 1)
+			move_right(list);
 		if (!ft_lstany(list, is_printable))
 			return (-1);
 	}
@@ -62,9 +65,9 @@ static int	key(char buffer[], t_list *list, int *direction, struct winsize win)
 		else if (buffer[2] == 67)
 			*direction = move_right(list);
 		else if (buffer[2] == 65)
-			move_up(list, win);
+			*direction = move_up(list, win);
 		else if (buffer[2] == 66)
-			move_down(list, win);
+			*direction = move_down(list, win);
 		else if (buffer[2] == 72)
 			move_first(list);
 		else if (buffer[2] == 70)
@@ -84,7 +87,7 @@ static int	key(char buffer[], t_list *list, int *direction, struct winsize win)
 		ft_lstiter_if(list, select_change, is_oncursor);
 		if (*direction == 0)
 			move_left(list);
-		else
+		else if (*direction == 1)
 			move_right(list);
 	}
 	else if (buffer[0] == 65 && !buffer[1] && !buffer[2])

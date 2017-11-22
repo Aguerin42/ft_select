@@ -19,9 +19,7 @@
 **
 **	\param	term -	Nom du terminal à chercher dans la base de données.
 **
-**	\return	**0** en cas de succès, **-1** si la variable _term_ est NULL,
-**			que la base données est introuvable ou que le terminal
-**			n'y est pas listé.
+**	\return	**0** en cas de succès, **-1** en cas d'erreur.
 */
 
 int	get_term(char *term)
@@ -45,10 +43,12 @@ int	get_term(char *term)
 **	window_size() récupère les dimensions de la fenêtre.
 **
 **	_init_ indique à la fonction si celle-ci doit faire appel à [ioctl][]
-**	pour initialiser la structure _[winsize][]_ ou si elle doit seulement être retournée.
+**	pour initialiser la structure _[winsize][]_ ou si elle doit seulement être
+**	retournée.
 **
 **	\param	init -	**0** pour retourner simplement la structure
-**					ou **non nul** pour initialiser la structure et la retourner.
+**					ou une valeur **non nulle** pour initialiser la structure et
+**					la retourner.
 **
 **	[ioctl]: http://man7.org/linux/man-pages/man2/ioctl.2.html
 **	[winsize]: http://www.delorie.com/djgpp/doc/libc/libc_495.html

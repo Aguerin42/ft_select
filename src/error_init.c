@@ -6,8 +6,7 @@
 **	\brief	Erreurs à afficher lorsque le lancement de _ft_select_
 **			est incorrect.
 **	
-**	Message d'erreur lorsque _ft_select_ est lancé sans argument,
-ee
+**	Message d'erreur lorsque _ft_select_ est lancé sans argument.
 **	Chacune de ces fonctions renvoie **-1**.
 */
 

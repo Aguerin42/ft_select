@@ -30,7 +30,8 @@ int	error_termdef(char *term)
 
 int	error_termbase(void)
 {
-	ft_putendl_fd("ft_select: Could not access the termcap data base. Exit.", 2);
+	ft_putendl_fd(
+			"ft_select: Could not access the termcap data base. Exit.", 2);
 	return (-1);
 }
 

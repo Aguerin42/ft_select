@@ -2,6 +2,8 @@
 **	\file	ft_select.h
 **	\author	Alexis Guérin
 **	\date	8 novembre 2017
+**
+**	\brief	Liste des fonctions
 */
 
 #ifndef FT_SELECT_H
@@ -30,7 +32,7 @@ typedef struct	s_select
 	int		print;		/*!< flag indiquant si l'élément doit être affiché */
 }				t_select;
 
-/**
+/*
 **	error.c
 */
 
@@ -45,7 +47,7 @@ int				error_usage(void);
 int				error_noenv(void);
 int				error_termvar(void);
 
-/**
+/*
 **	error_term.c
 */
 
@@ -79,7 +81,7 @@ void			delete(void *elem, size_t size);
 void			ft_lstiter_if(t_list *lst, void (*f)(void*), int (t)(void*));
 int				max_size_arg(t_list *list);
 
-/**
+/*
 **	list_move.c
 */
 
@@ -90,6 +92,19 @@ int				move_up(t_list *list, struct winsize win);
 int				move_down(t_list *list, struct winsize win);
 int				move_right(t_list *list);
 int				move_left(t_list *list);
+
+/*
+**	main.c
+*/
+
+struct termios	term_default(int set_default, int *ret);
+
+/*
+**	signal.c
+*/
+
+void			catch_signal(int signal);
+void			quit(int signal);
 
 /*
 **	struct.c

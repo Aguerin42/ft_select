@@ -11,7 +11,7 @@
 #include "ft_select.h"
 
 /**
-**	\brief	Argument affichable
+**	\brief	Afficher un argument
 **
 **	Modifie le flag de l'élément pour que l'argument puisse être affiché.
 */
@@ -23,7 +23,7 @@ void	set_print(t_select *elem)
 }
 
 /**
-**	\brief	Argument masqué
+**	\brief	Masquer un argument
 **
 **	Modifie le flag de l'élément pour que l'argument ne puisse pas être affiché.
 */
@@ -40,7 +40,7 @@ void	unset_print(void *elem)
 }
 
 /**
-**	\brief	Modification de l'état du curseur
+**	\brief	Modifier l'état du curseur
 **
 **	Active ou désactive le curseur sur l'argument donné.
 */
@@ -52,7 +52,7 @@ void	set_cursor(t_select *elem)
 }
 
 /**
-**	\brief	Modification de l'état de sélection d'un élément
+**	\brief	Modifier l'état de sélection d'un élément
 */
 
 void	select_change(void *elem)
@@ -67,7 +67,7 @@ void	select_change(void *elem)
 }
 
 /**
-**	\brief	Sélection d'un argument
+**	\brief	Sélectionner un argument
 */
 
 void	select_arg(void *elem)
@@ -82,7 +82,7 @@ void	select_arg(void *elem)
 }
 
 /**
-**	\brief	Désélection d'un argument
+**	\brief	Désélectionner un argument
 */
 
 void	unselect_arg(void *elem)

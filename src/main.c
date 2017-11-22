@@ -8,11 +8,11 @@
 
 #include "ft_select.h"
 
-/*
-**	Obtention du comportement par défaut ou rétablissement de celui-ci
+/**
+**	\brief	Obtention du comportement par défaut ou rétablissement de celui-ci
 */
 
-static struct termios	term_default(int set_default, int *ret)
+struct termios	term_default(int set_default, int *ret)
 {
 	static struct termios	term_default;
 
@@ -29,58 +29,31 @@ static struct termios	term_default(int set_default, int *ret)
 	return (term_default);
 }
 
-void	msg(int t)
-{
-	if (t)
-		;
-	ft_putendl("TRUC");
-	ft_putendl("TRUC");
-	ft_putendl("TRUC");
-	ft_putendl("TRUC");
-	ft_putendl("TRUC");
-	ft_putendl("TRUC");
-	ft_putendl("TRUC");
-	ft_putendl("TRUC");
-	ft_putendl("TRUC");
-	ft_putendl("TRUC");
-	ft_putendl("TRUC");
-	ft_putendl("TRUC");
-	ft_putendl("TRUC");
-	ft_putendl("TRUC");
-	ft_putendl("TRUC");
-}
-
-static void				catch_signal(int signal)
-{
-	t_list				*list;
-	struct sigaction	action;
-	
-	if (signal == SIGINT)
-	{
-		term_default(1, NULL);
-		list = get_list(0, NULL);
-		ft_lstdel(&list, delete);
-		exit(1);
-	}
-	else if (signal == SIGTSTP)
-	{
-		action.sa_handler = msg;
-		action.sa_flags = 0;
-		term_default(1, NULL);
-		sigaction(SIGTSTP, &action, NULL);
-	}
-	else if (signal == SIGWINCH)
-	{
-		list = get_list(0, NULL);
-		padding(list, window_size(1));
-	}
-}
-
 static void				sig(void)
 {
-	signal(SIGINT, catch_signal);
+	signal(SIGHUP, quit);
+	signal(SIGINT, quit);
+	signal(SIGQUIT, quit);
+	signal(SIGILL, quit);
+	signal(SIGTRAP, quit);
+	signal(SIGABRT, quit);
+	signal(SIGFPE, quit);
+	signal(SIGBUS, quit);
+	signal(SIGSEGV, quit);
+	signal(SIGSYS, quit);
+	signal(SIGPIPE, quit);
+	signal(SIGALRM, quit);
+	signal(SIGTERM, quit);
+	signal(SIGTTOU, quit);
+	signal(SIGXCPU, quit);
+	signal(SIGXFSZ, quit);
+	signal(SIGVTALRM, quit);
+	signal(SIGPROF, quit);
+	signal(SIGUSR1, quit);
+	signal(SIGUSR2, quit);
 	signal(SIGTSTP, catch_signal);
 	signal(SIGWINCH, catch_signal);
+	signal(SIGCONT, catch_signal);
 }
 
 

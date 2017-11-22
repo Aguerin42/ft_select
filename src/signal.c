@@ -62,9 +62,12 @@ void				quit(int signal)
 */
 void				catch_signal(int sig)
 {
-	struct termios		g_dat = term_default(0, NULL);
-	char				cp[2] = {g_dat.c_cc[VSUSP], 0};
+	struct termios		term;
+	char				cp[2];
 
+	term = term_default(0, NULL);
+	cp[0] = term.c_cc[VSUSP];
+	cp[1] = 0;
 	if (sig == SIGTSTP)
 	{
 		term_default(1, NULL);
@@ -73,9 +76,10 @@ void				catch_signal(int sig)
 	}
 	else if (sig == SIGCONT)
 	{
-		g_dat = set_term(term_default(0, NULL));
+		signal(SIGTSTP, catch_signal);
+		term = set_term(term_default(0, NULL));
 		set_term(term_default(0, NULL));
-		if ((tcsetattr(0, TCSADRAIN, &g_dat)) == -1)
+		if ((tcsetattr(0, TCSADRAIN, &term)) == -1)
 			error_termbehav();
 		padding(get_list(0, NULL), window_size(1));
 	}

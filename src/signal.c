@@ -8,6 +8,9 @@
 
 #include "ft_select.h"
 
+/*
+**	Message correspondant au signal reçu
+*/
 static void				sig_msg(int signal)
 {
 	if (signal == SIGHUP)
@@ -41,9 +44,8 @@ static void				sig_msg(int signal)
 /**
 **	\brief	Rétablissement de l'état du terminal après réception d'un signal
 **
-**	La fonction `quit()` remet le terminal dans son état initial
-**	avant d'afficher un message d'erreur correspondant au signal reçu
-**	puis de quitter
+**	La fonction remet le terminal dans son état initial avant d'afficher
+**	un message d'erreur (si un signal est reçu) puis quitter
 */
 
 void				quit(int signal)
@@ -54,11 +56,11 @@ void				quit(int signal)
 	list = get_list(0, NULL);
 	ft_lstdel(&list, delete);
 	sig_msg(signal);
-	exit(1);
+	exit(signal);
 }
 
 /**
-**	\brief	Attrape le signal `SIGTSTP` ou `SIGWINCH`
+**	\brief	Fonction pour les signaux `SIGTSTP`, `SIGCONT` ou `SIGWINCH`
 */
 void				catch_signal(int sig)
 {

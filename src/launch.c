@@ -9,6 +9,10 @@
 
 #include "ft_select.h"
 
+/*
+**	\brief	Initialisation des cases d'un tableau
+*/
+
 static void	fill_char_tab(char tabl[], size_t size, char val)
 {
 	size_t	i;
@@ -17,6 +21,13 @@ static void	fill_char_tab(char tabl[], size_t size, char val)
 	while (i < size)
 		tabl[i++] = val;
 }
+
+/*
+**	\brief	Sélection par partie
+**
+**	Sélectionne tous les arguments situés entre le curseur et le précédent 
+**	argument déjà sélectionné (ou le début de la liste s'il n'y en a pas)
+*/
 
 static void		select_part(t_list *list)
 {
@@ -35,6 +46,8 @@ static void		select_part(t_list *list)
 }
 
 /*
+**	Action à réaliser à l'appuie d'une touche
+**
 ** 	Direction : sens de direction du précédent déplacement.
 **	0 : gauche
 **	1 : droite
@@ -164,8 +177,6 @@ int	launch(int argc, char **argv, char *term, struct termios save)
 			return (error_alloc());
 		set_cursor((t_select*)list->content);
 		ret = ft_select(list, term_t);
-		if (list)
-			ft_lstdel(&list, delete);
 	}
 	return (ret);
 }

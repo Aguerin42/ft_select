@@ -5,14 +5,16 @@
 **
 **	\brief	Fonctions de gestion de la liste `t_list`.
 **
-**	La liste de la **Libft** est utilisée pour contenir les arguments donnés à
-**	_ft_select_. Cette liste est composée de 3 champs :
+**	La liste de la **[Libft][]** est utilisée pour contenir les arguments donnés
+**	à _ft_select_. Cette liste est composée de 3 champs :
 **	- `void		*content`, qui permet de stocker une donnée
 **	- `t_list	*next`, qui pointe vers l'élément suivant de la liste
 **	- `t_list	*prev`, qui pointe vers l'élément précédent de la liste
 **	
 **	Pour _ft_select_, `content` devra contenir une structure de type `t_select`
 **	(`s_select`).
+**
+**	[Libft]: https://github.com/Aguerin42/libft
 */
 
 #include "ft_select.h"
@@ -21,7 +23,7 @@
 **	\brief	Création de la liste d'argument
 **
 **	Crée une liste composée des arguments données en entrée de _ft_select_
-**	La liste est `static`, si celle-ci a déjà été créée elle est simplement
+**	La liste est statique, si celle-ci a déjà été créée elle est simplement
 **	retournée par la fonction.
 **
 **	\param	argc -	Nombre d'argument
@@ -51,8 +53,7 @@ t_list	*get_list(int argc, char **argv)
 }
 
 /**
-**	\brief	Fait appel à la fonction de suppression
-**			de la structure _t_select_
+**	\brief	Fait appel à la fonction de suppression de la structure _t_select_
 */
 
 void	delete(void *elem, size_t size)
@@ -64,9 +65,7 @@ void	delete(void *elem, size_t size)
 		select = (t_select*)elem;
 		del_tselect(&select);
 	}
-	if (size)
-	{
-	}
+	(void)size;
 }
 
 /**
@@ -94,8 +93,8 @@ int		max_size_arg(t_list *list)
 }
 
 /**
-**	\brief	Fait appel à la fonction d'affichage de _arg_
-**			de la structure *t_select* (put_tselect())
+**	\brief	Fait appel à la fonction d'affichage de _arg_ de la structure
+**			`t_select` (put_tselect())
 */
 
 void	print(t_list *elem)
@@ -107,8 +106,8 @@ void	print(t_list *elem)
 /**
 **	\brief	Application de fonction conditionnelle.
 **
-**	Applique la fonction _t_ sur chaque maillon de la liste et,
-**	si celle-ci renvoie _vrai_, applique la fonction _f_ sur les maillons.
+**	Applique la fonction `t` sur chaque maillon de la liste et,
+**	si celle-ci renvoie _vrai_, applique la fonction `f` sur les maillons.
 */
 
 void	ft_lstiter_if(t_list *lst, void (*f)(void*), int (t)(void*))

@@ -11,7 +11,7 @@
 #include "ft_select.h"
 
 /**
-**	\brief	Message d'erreur en cas de problème d'allocation.
+**	\brief	Erreur d'allocation.
 */
 
 int	error_alloc(void)
@@ -21,8 +21,7 @@ int	error_alloc(void)
 }
 
 /**
-**	\brief	Message d'erreur en cas de problème de récupération
-**			de la taille de la fenêtre.
+**	\brief	Échec de récupération des dimensions de la fenêtre.
 */
 
 int	error_winsize(void)

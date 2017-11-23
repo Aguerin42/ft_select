@@ -12,10 +12,10 @@
 /**
 **	\brief	Récupération des informations du terminal.
 **
-**	get_term() récupère les informations du terminal _term_. S'il n'est pas
+**	get_term() récupère les informations du terminal `term`. S'il n'est pas
 **	listé dans la base de données ou que celle-ci n'est pas disponible,
-**	un message d'erreur correspondant (respectivement par error_termdef()
-**	ou error_termbase()) est affiché et **-1** retourné.
+**	un message d'erreur correspondant est affiché (respectivement par
+**	error_termdef() ou error_termbase()) et **-1** retourné.
 **
 **	\param	term -	Nom du terminal à chercher dans la base de données.
 **
@@ -42,7 +42,7 @@ int	get_term(char *term)
 **
 **	window_size() récupère les dimensions de la fenêtre.
 **
-**	_init_ indique à la fonction si celle-ci doit faire appel à [ioctl][]
+**	`init` indique à la fonction si celle-ci doit faire appel à [ioctl][]
 **	pour initialiser la structure _[winsize][]_ ou si elle doit seulement être
 **	retournée.
 **
@@ -68,8 +68,8 @@ struct winsize	window_size(int init)
 **	\brief	Modification de la structure _termios_.
 **
 **	set_term() copie les informations du terminal dans une nouvelle structure
-**	_[termios][]_, le met en mode non canonique, désactive l'affichage des touches
-**	tappées et l'affichage du curseur.
+**	_[termios][]_, le met en mode non canonique, désactive l'affichage des
+**	touches tappées et l'affichage du curseur.
 **
 **	\param	term -	Structure du terminal de référence.
 **
@@ -93,6 +93,9 @@ struct termios	set_term(struct termios term)
 
 /**
 **	\brief	Restauration du terminal par défaut.
+**
+**	\param	default_term -	Structure sauvegardée du terminal par défaut,
+**							à rétablir
 */
 
 int	reset_term(struct termios default_term)

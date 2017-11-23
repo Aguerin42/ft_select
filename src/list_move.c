@@ -5,7 +5,7 @@
 **
 **	\brief	Fonctions de gestion de déplacement dans la liste.
 **
-**	L'argument `list` est toujours la tête de liste.
+**	L'argument `list` doit toujours être la tête de liste.
 */
 
 #include "ft_select.h"

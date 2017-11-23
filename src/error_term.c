@@ -3,7 +3,7 @@
 **	\author	Alexis Guérin
 **	\date	8 novembre 2017
 **
-**	\brief	Erreurs à afficher en cas de problèmes avec la gestion
+**	\brief	Messages d'erreurs en cas de problèmes avec la gestion
 **			des informations du terminal.
 **
 **	Chacune de ces fonctions renvoie **-1**.
@@ -12,8 +12,7 @@
 #include "ft_select.h"
 
 /**
-**	\brief	Message d'erreur si le terminal _term_
-**			n'est pas dans la base de données.
+**	\brief	Le terminal `term` n'est pas dans la base de données.
 */
 
 int	error_termdef(char *term)
@@ -25,7 +24,7 @@ int	error_termdef(char *term)
 }
 
 /**
-**	\brief	Message d'erreur si la base de données est introuvable.
+**	\brief	La base de données est introuvable.
 */
 
 int	error_termbase(void)
@@ -36,8 +35,7 @@ int	error_termbase(void)
 }
 
 /**
-**	\brief	Message d'erreur si la modification du comportement
-**			du terminal échoue.
+**	\brief	Échec de la modification du comportement du terminal.
 */
 
 int	error_termbehav(void)
@@ -47,8 +45,7 @@ int	error_termbehav(void)
 }
 
 /**
-**	\brief	Message d'erreur si la restauration du comportement
-**			du terminal échoue.
+**	\brief	Échec de la restauration du comportement du terminal.
 */
 
 int	error_termrestore(void)

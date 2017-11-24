@@ -63,7 +63,10 @@ static int	nb_line_tot(t_list *list, int win_size)
 
 int			nb_column(struct winsize window, int max_size)
 {
-	return (max_size ? (window.ws_col / (max_size + 1)) : 0);
+	int	res;
+
+	res = max_size ? (window.ws_col / (max_size + 1)) : 1;
+	return (res ? res : 1);
 }
 
 static void	padding2(t_list *list, struct winsize win, int max_size)

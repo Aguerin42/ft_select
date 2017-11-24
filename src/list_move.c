@@ -24,8 +24,10 @@ int				move_up(t_list *list, struct winsize win)
 		origin = ft_lstfind(list, is_oncursor);
 		column = nb_column(win, max_size_arg(list));
 		list = origin;
-		while (list->prev && (column-- > 0))
+		while (list && list->prev && (column-- > 0))
 			list = ft_lstfind_prev(list->prev, is_printable);
+		if (!(list))
+			list = origin;
 		if (column <= 0)
 		{
 			set_cursor(origin->content);
@@ -49,8 +51,10 @@ int				move_down(t_list *list, struct winsize win)
 		origin = ft_lstfind(list, is_oncursor);
 		column = nb_column(win, max_size_arg(list));
 		list = origin;
-		while (list->next && (column-- > 0))
+		while (list && list->next && (column-- > 0))
 			list = ft_lstfind(list->next, is_printable);
+		if (!(list))
+			list = origin;
 		if (column <= 0)
 		{
 			set_cursor(origin->content);

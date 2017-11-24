@@ -67,6 +67,13 @@ struct termios	set_term(struct termios term);
 int				reset_term(struct termios term);
 
 /*
+**	key.c
+*/
+
+int				key(char buffer[], t_list *list,\
+					int *direction, struct winsize win);
+
+/*
 **	launch.c
 */
 

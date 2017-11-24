@@ -10,7 +10,7 @@
 **	- `void		*content`, qui permet de stocker une donnée
 **	- `t_list	*next`, qui pointe vers l'élément suivant de la liste
 **	- `t_list	*prev`, qui pointe vers l'élément précédent de la liste
-**	
+**
 **	Pour _ft_select_, `content` devra contenir une structure de type `t_select`
 **	(`s_select`).
 **
@@ -46,7 +46,7 @@ static void	set_all_member(t_select *elem)
 **	\return	La **liste** d'argument ou **NULL** en cas d'échec.
 */
 
-t_list	*get_list(int argc, char **argv)
+t_list		*get_list(int argc, char **argv)
 {
 	static t_list	*list = NULL;
 	t_select		*struc;
@@ -70,7 +70,7 @@ t_list	*get_list(int argc, char **argv)
 **	\brief	Fait appel à la fonction de suppression de la structure _t_select_
 */
 
-void	delete(void *elem, size_t size)
+void		delete(void *elem, size_t size)
 {
 	t_select	*select;
 
@@ -89,7 +89,7 @@ void	delete(void *elem, size_t size)
 **	argument affichable.
 */
 
-int		max_size_arg(t_list *list)
+int			max_size_arg(t_list *list)
 {
 	int			size;
 	int			max;

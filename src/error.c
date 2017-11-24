@@ -17,10 +17,10 @@
 **	positionné en haut à gauche de la fenêtre et que celle-ci ait été effacée.
 */
 
-void		print_message(char *msg, int fd)
+void	print_message(char *msg, int fd)
 {
 	ft_putstr_fd(tgetstr("cl", NULL), 0);
-	ft_putstr_fd(tgoto(tgetstr("cm", NULL),  0, 0), 0);
+	ft_putstr_fd(tgoto(tgetstr("cm", NULL), 0, 0), 0);
 	ft_putendl_fd(msg, fd);
 }
 
@@ -28,7 +28,7 @@ void		print_message(char *msg, int fd)
 **	\brief	Erreur d'allocation.
 */
 
-int	error_alloc(void)
+int		error_alloc(void)
 {
 	print_message("ft_select: allocation error. Exit", 2);
 	return (-1);
@@ -38,7 +38,7 @@ int	error_alloc(void)
 **	\brief	Échec de récupération des dimensions de la fenêtre.
 */
 
-int	error_winsize(void)
+int		error_winsize(void)
 {
 	print_message("ft_select: failed to get window size. Exit", 2);
 	return (-1);

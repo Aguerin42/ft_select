@@ -22,7 +22,7 @@
 **	\return	**0** en cas de succès, **-1** en cas d'erreur.
 */
 
-int	get_term(char *term)
+int				get_term(char *term)
 {
 	int		ret;
 
@@ -98,7 +98,7 @@ struct termios	set_term(struct termios term)
 **							à rétablir
 */
 
-int	reset_term(struct termios default_term)
+int				reset_term(struct termios default_term)
 {
 	ft_putstr_fd(tgetstr("ve", NULL), 0);
 	if ((tcsetattr(0, TCSADRAIN, &default_term)) == -1)

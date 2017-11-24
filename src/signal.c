@@ -12,7 +12,7 @@
 **	Message correspondant au signal reçu
 */
 
-static void				sig_msg(int signal)
+static void	sig_msg(int signal)
 {
 	if (signal == SIGHUP)
 		ft_putendl_fd("hangup ft_select", 2);
@@ -36,10 +36,8 @@ static void				sig_msg(int signal)
 		ft_putendl_fd("ft_select", 2);
 	else if (signal == SIGTERM)
 		ft_putendl_fd("terminated ft_select", 2);
-	else if (signal == SIGUSR1)
-		ft_putendl_fd("user-defined signal 1 ft_select", 2);
-	else if (signal == SIGUSR2)
-		ft_putendl_fd("user-defined signal 2 ft_select", 2);
+	else if (signal == SIGUSR1 || signal == SIGUSR2)
+		ft_putendl_fd("user-defined signal ft_select", 2);
 }
 
 /**
@@ -49,7 +47,7 @@ static void				sig_msg(int signal)
 **	un message d'erreur (si un signal est reçu) puis quitter
 */
 
-void				quit(int signal)
+void		quit(int signal)
 {
 	t_list	*list;
 
@@ -64,7 +62,7 @@ void				quit(int signal)
 **	\brief	Fonction pour les signaux `SIGTSTP`, `SIGCONT` ou `SIGWINCH`
 */
 
-void				catch_signal(int sig)
+void		catch_signal(int sig)
 {
 	struct termios		term;
 	char				cp[2];
@@ -90,4 +88,3 @@ void				catch_signal(int sig)
 	else if (sig == SIGWINCH)
 		padding(get_list(0, NULL), window_size(1));
 }
-

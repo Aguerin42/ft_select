@@ -14,7 +14,7 @@
 **	\brief	Déplace le curseur sur l'élément du dessus
 */
 
-int					move_up(t_list *list, struct winsize win)
+int				move_up(t_list *list, struct winsize win)
 {
 	int		column;
 	t_list	*origin;

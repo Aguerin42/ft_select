@@ -5,7 +5,7 @@
 **
 **	\brief	Erreurs à afficher lorsque le lancement de _ft_select_
 **			est incorrect.
-**	
+**
 **	Chacune de ces fonctions renvoie **-1**.
 */
 

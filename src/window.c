@@ -16,13 +16,13 @@ static int	nb_line(void *elem, int size)
 {
 	int			nb;
 	t_select	*select;
-	
+
 	if (elem)
 	{
 		select = (t_select*)elem;
 		if (select && select->arg && size > 0)
 			if ((nb = ft_strlen(select->arg)) > 0 && (nb > size))
-				return (nb/size + 1);
+				return (nb / size + 1);
 	}
 	return (1);
 }
@@ -54,7 +54,6 @@ static int	nb_line_tot(t_list *list, int win_size)
 	return (i);
 }
 
-
 /**
 **	\brief	Nombre de colonnes possibles dans la fenêtre
 **
@@ -67,39 +66,24 @@ int			nb_column(struct winsize window, int max_size)
 	return (max_size ? (window.ws_col / (max_size + 1)) : 0);
 }
 
-/**
-**	\brief	Affichage des arguments en fonction de la taille de la fenêtre
-**
-**	\param	list -		liste des arguments
-**	\param	window -	structure contenant les informations sur les dimensions
-**						de la fenêtre
-*/
-
-void		padding(t_list *list, struct winsize window)
+static void	padding2(t_list *list, struct winsize win, int max_size)
 {
 	int	line;
 	int	column;
-	int	max_size;
 
 	line = 0;
 	column = 0;
-	max_size = max_size_arg(list);
-	ft_putstr_fd(tgetstr("cl", NULL), 0);
-	if (max_size > window.ws_col &&
-			nb_line_tot(list, window.ws_col) > window.ws_row - 1)
-		print_message("The window is too small...", 2);
-	else
-	{
+	if (list)
 		while ((list = ft_lstfind(list, is_printable)))
 		{
 			ft_putstr_fd(tgoto(tgetstr("cm", NULL), column, line), 0);
 			put_tselect((t_select*)list->content);
-			if (max_size >= window.ws_col)
-				line += nb_line((t_select*)list->content, window.ws_col);
+			if (max_size >= win.ws_col)
+				line += nb_line((t_select*)list->content, win.ws_col);
 			else
 			{
 				column += max_size + 1;
-				if (column + max_size >= window.ws_col)
+				if (column + max_size >= win.ws_col)
 				{
 					column = 0;
 					line++;
@@ -107,6 +91,25 @@ void		padding(t_list *list, struct winsize window)
 			}
 			list = list->next;
 		}
-		ft_putendl("");
-	}
+	ft_putendl("");
+}
+
+/**
+**	\brief	Affichage des arguments en fonction de la taille de la fenêtre
+**
+**	\param	list -		liste des arguments
+**	\param	win -		structure contenant les informations sur les dimensions
+**						de la fenêtre
+*/
+
+void		padding(t_list *list, struct winsize win)
+{
+	int	max_size;
+
+	max_size = max_size_arg(list);
+	ft_putstr_fd(tgetstr("cl", NULL), 0);
+	if (max_size > win.ws_col && nb_line_tot(list, win.ws_col) > win.ws_row - 1)
+		print_message("The window is too small...", 2);
+	else if (list)
+		padding2(list, win, max_size);
 }

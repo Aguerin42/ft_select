@@ -35,7 +35,7 @@ struct termios	term_default(int set_default, int *ret)
 	return (term_default);
 }
 
-static void				sig(void)
+static void		sig(void)
 {
 	signal(SIGHUP, quit);
 	signal(SIGINT, quit);
@@ -68,15 +68,15 @@ static void				sig(void)
 **	main() vérifie que *ft_select* reçoit bien au moins un argument
 **	à son lancement, que l'environnement qui lui est donné n'est pas vide
 **	et que celui-ci contient bien une variable TERM initialisée.
-**	
+**
 **	Si aucune erreur n'est rencontrée, les informations du terminal
 **	sont récupérées et stockées dans une structure _termios_.
-**	
+**
 **	Sinon le programme quitte en affichant un message d'erreur (respectivement
 **	error_usage(), error_noenv() ou error_termvar()).
 */
 
-int						main(int argc, char **argv, char **env)
+int				main(int argc, char **argv, char **env)
 {
 	int				ret;
 	char			*term;

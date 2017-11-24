@@ -64,10 +64,7 @@ static int	key(char buffer[], t_list *list, int *direction, struct winsize win)
 		 && buffer[3] == 126 && !buffer[4] && !buffer[5]))
 	{
 		ft_lstiter_if(list, unset_print, is_oncursor);
-		if (*direction == 0)
-			move_left(list);
-		else if (*direction == 1)
-			move_right(list);
+		move_right(list);
 		if (!ft_lstany(list, is_printable))
 			return (-1);
 	}
@@ -175,7 +172,7 @@ int	launch(int argc, char **argv, char *term, struct termios save)
 		term_t = set_term(save);
 		if (!(list = get_list(argc, argv)))
 			return (error_alloc());
-		set_cursor((t_select*)list->content);
+		set_cursor(list->content);
 		ret = ft_select(list, term_t);
 	}
 	return (ret);

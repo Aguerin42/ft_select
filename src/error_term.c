@@ -17,9 +17,9 @@
 
 int	error_termdef(char *term)
 {
-	ft_putstr_fd("ft_select: Terminal type ", 2);
-	ft_putstr_fd(term, 2);
-	ft_putendl_fd(" is not defined. Exit.", 2);
+	print_message("ft_select: Terminal type ", 2);
+	print_message(term, 2);
+	print_message(" is not defined. Exit.", 2);
 	return (-1);
 }
 
@@ -29,7 +29,7 @@ int	error_termdef(char *term)
 
 int	error_termbase(void)
 {
-	ft_putendl_fd(
+	print_message(
 			"ft_select: Could not access the termcap data base. Exit.", 2);
 	return (-1);
 }
@@ -40,7 +40,7 @@ int	error_termbase(void)
 
 int	error_termbehav(void)
 {
-	ft_putendl_fd("ft_select: Error modifying terminal behavior", 2);
+	print_message("ft_select: Error modifying terminal behavior", 2);
 	return (-1);
 }
 
@@ -50,6 +50,6 @@ int	error_termbehav(void)
 
 int	error_termrestore(void)
 {
-	ft_putendl_fd("ft_select: Error restoring initial behavior", 2);
+	print_message("ft_select: Error restoring initial behavior", 2);
 	return (-1);
 }

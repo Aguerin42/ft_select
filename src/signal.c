@@ -11,6 +11,7 @@
 /*
 **	Message correspondant au signal reçu
 */
+
 static void				sig_msg(int signal)
 {
 	if (signal == SIGHUP)
@@ -62,6 +63,7 @@ void				quit(int signal)
 /**
 **	\brief	Fonction pour les signaux `SIGTSTP`, `SIGCONT` ou `SIGWINCH`
 */
+
 void				catch_signal(int sig)
 {
 	struct termios		term;

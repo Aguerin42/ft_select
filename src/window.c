@@ -8,6 +8,10 @@
 
 #include "ft_select.h"
 
+/*
+**	Nombre de lignes nécessaires à l'affichage d'un argument
+*/
+
 static int	nb_line(void *elem, int size)
 {
 	int			nb;
@@ -23,7 +27,7 @@ static int	nb_line(void *elem, int size)
 	return (1);
 }
 
-/**
+/*
 **	\brief	Calcul du nombre de lignes nécessaires à l'affichage
 **
 **	La fonction calcule, en fonction des arguments affichables et de la taille
@@ -37,7 +41,7 @@ static int	nb_line(void *elem, int size)
 **			ou un **nombre strictement positif** sinon
 */
 
-int			nb_line_tot(t_list *list, int win_size)
+static int	nb_line_tot(t_list *list, int win_size)
 {
 	int	i;
 
@@ -86,7 +90,7 @@ void		padding(t_list *list, struct winsize window)
 		print_message("The window is too small...", 2);
 	else
 	{
-		while ((list = find_printable_right(list)))
+		while ((list = ft_lstfind(list, is_printable)))
 		{
 			ft_putstr_fd(tgoto(tgetstr("cm", NULL), column, line), 0);
 			put_tselect((t_select*)list->content);
@@ -105,18 +109,4 @@ void		padding(t_list *list, struct winsize window)
 		}
 		ft_putendl("");
 	}
-}
-
-/**
-**	Affichage de message après effacement de l'écran
-**
-**	Affiche le message `msg` sur la sortie `fd`, après que le curseur ait été
-**	positionné en haut à gauche de la fenêtre et que celle-ci ait été effacée.
-*/
-
-void		print_message(char *msg, int fd)
-{
-	ft_putstr_fd(tgetstr("cl", NULL), 0);
-	ft_putstr_fd(tgoto(tgetstr("cm", NULL),  0, 0), 0);
-	ft_putendl_fd(msg, fd);
 }

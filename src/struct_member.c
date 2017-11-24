@@ -11,18 +11,6 @@
 #include "ft_select.h"
 
 /**
-**	\brief	Afficher un argument
-**
-**	Modifie le flag de l'élément pour que l'argument puisse être affiché.
-*/
-
-void	set_print(t_select *elem)
-{
-	if (elem)
-		elem->print = 1;
-}
-
-/**
 **	\brief	Masquer un argument
 **
 **	Modifie le flag de l'élément pour que l'argument ne puisse pas être affiché.
@@ -45,10 +33,15 @@ void	unset_print(void *elem)
 **	Active ou désactive le curseur sur l'argument donné.
 */
 
-void	set_cursor(t_select *elem)
+void	set_cursor(void *elem)
 {
+	t_select	*select;
+
 	if (elem)
-		elem->cursor = !elem->cursor;
+	{
+		select = (t_select*)elem;
+		select->cursor = !select->cursor;
+	}
 }
 
 /**
@@ -93,19 +86,5 @@ void	unselect_arg(void *elem)
 	{
 		select = (t_select*)elem;
 		select->selec = 0;
-	}
-}
-
-/**
-**	\brief	Initialisation des champs de la structure `t_select`
-*/
-
-void	set_all_member(t_select *elem)
-{
-	if (elem)
-	{
-		elem->cursor = 0;
-		elem->selec = 0;
-		elem->print = 1;
 	}
 }

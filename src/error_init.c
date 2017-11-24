@@ -17,7 +17,7 @@
 
 int	error_usage(void)
 {
-	ft_putendl_fd("usage: ft_select argument ...", 2);
+	print_message("usage: ft_select argument ...", 2);
 	return (-1);
 }
 
@@ -27,7 +27,7 @@ int	error_usage(void)
 
 int	error_noenv(void)
 {
-	ft_putendl_fd("ft_select: set an environment to continue. Exit.", 2);
+	print_message("ft_select: set an environment to continue. Exit.", 2);
 	return (-1);
 }
 
@@ -37,6 +37,6 @@ int	error_noenv(void)
 
 int	error_termvar(void)
 {
-	ft_putendl_fd("ft_select: set the TERM variable to continue. Exit.", 2);
+	print_message("ft_select: set the TERM variable to continue. Exit.", 2);
 	return (-1);
 }

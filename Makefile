@@ -21,7 +21,7 @@ INC_FILE = ft_select.h
 
 # Fichiers sources
 SRC_PATH = src/
-SRC_FILE = main.c error.c error_init.c error_term.c get_term.c launch.c list.c list_move.c signal.c struct.c struct_is.c struct_member.c window.c
+SRC_FILE = main.c error.c error_init.c error_term.c get_term.c launch.c list.c list_move.c list_move2.c signal.c struct.c struct_is.c struct_member.c window.c
 
 # Variables
 PROJET = ft_select

@@ -11,7 +11,7 @@
 /**
 **	\brief	Obtention du comportement par défaut ou rétablissement de celui-ci
 **
-**	\param	set_default -	**0** pour obternir les informations du terminal,
+**	\param	set_default -	**0** pour obtenir les informations du terminal,
 **							ou une valeur **non nulle** pour rétablir
 **							le terminal par défaut.
 **	\param	ret -			est mis à une valeur **non nulle** en cas d'erreur
@@ -90,7 +90,6 @@ int						main(int argc, char **argv, char **env)
 	if (!(term = getenv("TERM")) || !term[0])
 		return (error_termvar());
 	ret += launch(argc, argv, term, term_default(0, &ret));
-//	term_default(1, &ret);
 	quit(0);
 	return (ret);
 }

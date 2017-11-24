@@ -19,6 +19,20 @@
 
 #include "ft_select.h"
 
+/*
+**	\brief	Initialisation des champs de la structure `t_select`
+*/
+
+static void	set_all_member(t_select *elem)
+{
+	if (elem)
+	{
+		elem->cursor = 0;
+		elem->selec = 0;
+		elem->print = 1;
+	}
+}
+
 /**
 **	\brief	Création de la liste d'argument
 **
@@ -27,7 +41,7 @@
 **	retournée par la fonction.
 **
 **	\param	argc -	Nombre d'argument
-**	\param	argv -	Tableau d'argument (incluant le nom de l'éxécutable
+**	\param	argv -	Tableau d'argument (incluant le nom de l'éxécutable)
 **
 **	\return	La **liste** d'argument ou **NULL** en cas d'échec.
 */
@@ -71,7 +85,7 @@ void	delete(void *elem, size_t size)
 /**
 **	\brief	Obtention de la taille du plus grand argument de la liste.
 **
-**	La fonction parcours la liste et retourne la taille du plus grand
+**	La fonction parcourt la liste et retourne la taille du plus grand
 **	argument affichable.
 */
 
@@ -90,32 +104,4 @@ int		max_size_arg(t_list *list)
 		list = list->next;
 	}
 	return (max);
-}
-
-/**
-**	\brief	Fait appel à la fonction d'affichage de _arg_ de la structure
-**			`t_select` (put_tselect())
-*/
-
-void	print(t_list *elem)
-{
-	if (elem && elem->content)
-		put_tselect((t_select*)elem->content);
-}
-
-/**
-**	\brief	Application de fonction conditionnelle.
-**
-**	Applique la fonction `t` sur chaque maillon de la liste et,
-**	si celle-ci renvoie _vrai_, applique la fonction `f` sur les maillons.
-*/
-
-void	ft_lstiter_if(t_list *lst, void (*f)(void*), int (t)(void*))
-{
-	while (lst)
-	{
-		if (t(lst->content))
-			f(lst->content);
-		lst = lst->next;
-	}
 }

@@ -11,6 +11,20 @@
 #include "ft_select.h"
 
 /**
+**	Affichage de message après effacement de l'écran
+**
+**	Affiche le message `msg` sur la sortie `fd`, après que le curseur ait été
+**	positionné en haut à gauche de la fenêtre et que celle-ci ait été effacée.
+*/
+
+void		print_message(char *msg, int fd)
+{
+	ft_putstr_fd(tgetstr("cl", NULL), 0);
+	ft_putstr_fd(tgoto(tgetstr("cm", NULL),  0, 0), 0);
+	ft_putendl_fd(msg, fd);
+}
+
+/**
 **	\brief	Erreur d'allocation.
 */
 

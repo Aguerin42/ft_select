@@ -10,84 +10,6 @@
 
 #include "ft_select.h"
 
-/*
-**	\brief	Renvoie la queue de liste.
-*/
-
-static t_list	*find_tail(t_list *list)
-{
-	while (list->next)
-		list = list->next;
-	return (list);
-}
-
-/*
-**	\brief	Renvoie la position du curseur.
-*/
-
-static t_list	*find_cursor(t_list *list)
-{
-	while (list && !(is_oncursor(list->content)))
-		list = list->next;
-	return (list);
-}
-
-/**
-**	\brief	Renvoie le prochain argument affichable.
-*/
-
-t_list			*find_printable_right(t_list *list)
-{
-	while (list && !(is_printable(list->content)))
-		list = list->next;
-	return (list);
-}
-
-/*
-**	\brief	Renvoie le précédent argument affichable.
-*/
-
-static t_list		*find_printable_left(t_list *list)
-{
-	while (list && !is_printable(list->content))
-		list = list->prev;
-	return (list);
-}
-
-/**
-**	\brief	Déplace le curseur sur le premier élément.
-*/
-
-void				move_first(t_list *list)
-{
-	t_list	*head;
-
-	if (list)
-	{
-		head = list;
-		list = find_cursor(list);
-		set_cursor(list->content);
-		set_cursor(head->content);
-	}
-}
-
-/**
-**	\brief	Déplace le curseur sur le dernier élément.
-*/
-
-void				move_last(t_list *list)
-{
-	t_list	*tail;
-
-	if (list)
-	{
-		tail = find_tail(list);
-		list = find_cursor(list);
-		set_cursor(list->content);
-		set_cursor(tail->content);
-	}
-}
-
 /**
 **	\brief	Déplace le curseur sur l'élément du dessus
 */
@@ -99,11 +21,11 @@ int					move_up(t_list *list, struct winsize win)
 
 	if (list)
 	{
-		origin = find_cursor(list);
+		origin = ft_lstfind(list, is_oncursor);
 		column = nb_column(win, max_size_arg(list));
 		list = origin;
 		while (list->prev && (column-- > 0))
-			list = find_printable_left(list->prev);
+			list = ft_lstfind_prev(list->prev, is_printable);
 		if (column <= 0)
 		{
 			set_cursor(origin->content);
@@ -124,11 +46,11 @@ int				move_down(t_list *list, struct winsize win)
 
 	if (list)
 	{
-		origin = find_cursor(list);
+		origin = ft_lstfind(list, is_oncursor);
 		column = nb_column(win, max_size_arg(list));
 		list = origin;
 		while (list->next && (column-- > 0))
-			list = find_printable_right(list->next);
+			list = ft_lstfind(list->next, is_printable);
 		if (column <= 0)
 		{
 			set_cursor(origin->content);
@@ -146,11 +68,11 @@ int				move_right(t_list *list)
 {
 	t_list	*head;
 
-	head = find_printable_right(list);
-	if (list && (list = find_cursor(list)))
+	head = ft_lstfind(list, is_printable);
+	if (list && (list = ft_lstfind(list, is_oncursor)))
 	{
 		set_cursor(list->content);
-		if (!(list = find_printable_right(list->next)))
+		if (!(list = ft_lstfind(list->next, is_printable)))
 			list = head;
 		if (list)
 			set_cursor(list->content);
@@ -166,11 +88,11 @@ int				move_left(t_list *list)
 {
 	t_list	*tail;
 
-	tail = find_printable_left(find_tail(list));
-	if (list && (list = find_cursor(list)))
+	tail = ft_lstfind_prev(ft_lstfind_tail(list), is_printable);
+	if (list && (list = ft_lstfind(list, is_oncursor)))
 	{
 		set_cursor(list->content);
-		if (!(list = find_printable_left(list->prev)))
+		if (!(list = ft_lstfind_prev(list->prev, is_printable)))
 			list = tail;
 		if (list)
 			set_cursor(list->content);

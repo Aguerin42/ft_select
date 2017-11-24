@@ -36,6 +36,7 @@ typedef struct	s_select
 **	error.c
 */
 
+void			print_message(char *msg, int fd);
 int				error_alloc(void);
 int				error_winsize(void);
 
@@ -76,22 +77,24 @@ int				launch(int argc, char **argv, char *term, struct termios save);
 */
 
 t_list			*get_list(int argc, char **argv);
-void			print(t_list *elem);
 void			delete(void *elem, size_t size);
-void			ft_lstiter_if(t_list *lst, void (*f)(void*), int (t)(void*));
 int				max_size_arg(t_list *list);
 
 /*
 **	list_move.c
 */
 
-t_list			*find_printable_right(t_list *list);
-void			move_last(t_list *list);
-void			move_first(t_list *list);
 int				move_up(t_list *list, struct winsize win);
 int				move_down(t_list *list, struct winsize win);
 int				move_right(t_list *list);
 int				move_left(t_list *list);
+
+/*
+**	list_move2.c
+*/
+
+void			move_last(t_list *list);
+void			move_first(t_list *list);
 
 /*
 **	main.c
@@ -126,11 +129,9 @@ int				is_select(void *elem);
 **	struct_member.c
 */
 
-void			set_print(t_select *elem);
 void			unset_print(void *elem);
-void			set_cursor(t_select *elem);
+void			set_cursor(void *elem);
 void			select_change(void *elem);
-void			set_all_member(t_select *elem);
 void			select_arg(void *elem);
 void			unselect_arg(void *elem);
 
@@ -138,9 +139,7 @@ void			unselect_arg(void *elem);
 **	window.c
 */
 
-int				nb_line_tot(t_list *list, int size);
 int				nb_column(struct winsize window, int max_size);
 void			padding(t_list *list, struct winsize window);
-void			print_message(char *msg, int fd);
 
 #endif

@@ -100,6 +100,7 @@ struct termios	set_term(struct termios term)
 
 int				reset_term(struct termios default_term)
 {
+	ft_putstr_fd(tgetstr("te", NULL), 0);
 	ft_putstr_fd(tgetstr("ve", NULL), 0);
 	if ((tcsetattr(0, TCSADRAIN, &default_term)) == -1)
 		return (error_termrestore());

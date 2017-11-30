@@ -34,6 +34,30 @@ static void	set_all_member(t_select *elem)
 }
 
 /**
+**	\brief	Renvoi des arguments sélectionnés
+*/
+
+void		print_select(t_list *list)
+{
+	t_select	*select;
+	int			i;
+
+	i = 0;
+	while (list)
+	{
+		select = (t_select*)list->content;
+		if (select && is_select(select))
+		{
+			(!i) ? i = 1 : ft_putchar(' ');
+			ft_putstr_fd(select->arg, 0);
+		}
+		list = list->next;
+	}
+	if (i)
+		ft_putendl_fd("", 0);
+}
+
+/**
 **	\brief	Création de la liste d'argument
 **
 **	Crée une liste composée des arguments données en entrée de _ft_select_

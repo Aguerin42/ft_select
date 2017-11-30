@@ -60,8 +60,7 @@ static int	key2(char buffer[], t_list *list, int *direction)
 	if (buffer[0] == 10 && !buffer[1] && !buffer[2])
 	{
 		term_default(1, NULL);
-		ft_lstiter_if(list, put_select_arg, is_select);
-		ft_putendl_fd("", 0);
+		print_select(list);
 		return (-1);
 	}
 	else if (buffer[0] == 32 && !buffer[1] && !buffer[2])

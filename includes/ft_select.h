@@ -86,6 +86,7 @@ int				launch(int argc, char **argv, char *term, struct termios save);
 t_list			*get_list(int argc, char **argv);
 void			delete(void *elem, size_t size);
 int				max_size_arg(t_list *list);
+void			print_select(t_list *list);
 
 /*
 **	list_move.c

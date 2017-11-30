@@ -51,11 +51,20 @@ void		quit(int signal)
 {
 	t_list	*list;
 
-	term_default(1, NULL);
 	list = get_list(0, NULL);
 	ft_lstdel(&list, delete);
 	sig_msg(signal);
 	exit(signal);
+}
+
+/**
+**	\brief	Appel à reset_term() puis appel à quit()
+*/
+
+void		reset_quit(int signal)
+{
+	reset_term(term_default(1, NULL));
+	quit(signal);
 }
 
 /**

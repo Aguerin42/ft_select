@@ -115,6 +115,7 @@ struct termios	term_default(int set_default, int *ret);
 
 void			catch_signal(int signal);
 void			quit(int signal);
+void			reset_quit(int signal);
 
 /*
 **	struct.c

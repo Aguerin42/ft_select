@@ -59,6 +59,7 @@ static int	key2(char buffer[], t_list *list, int *direction)
 {
 	if (buffer[0] == 10 && !buffer[1] && !buffer[2])
 	{
+		term_default(1, NULL);
 		ft_lstiter_if(list, put_select_arg, is_select);
 		ft_putendl_fd("", 0);
 		return (-1);
@@ -93,7 +94,10 @@ static int	key2(char buffer[], t_list *list, int *direction)
 int			key(char buffer[], t_list *list, int *direction, struct winsize win)
 {
 	if (!list || (buffer[0] == 27 && !buffer[1] && !buffer[2]))
+	{
+		term_default(1, NULL);
 		return (-1);
+	}
 	if ((buffer[0] == 127 && !buffer[1] && !buffer[2]) ||
 		(buffer[0] == 27 && buffer[1] == 91 && buffer[2] == 51 &&
 			buffer[3] == 126 && !buffer[4] && !buffer[5]))
@@ -101,7 +105,10 @@ int			key(char buffer[], t_list *list, int *direction, struct winsize win)
 		ft_lstiter_if(list, unset_print, is_oncursor);
 		move_right(list);
 		if (!ft_lstany(list, is_printable))
+		{
+			term_default(1, NULL);
 			return (-1);
+		}
 	}
 	else if (buffer[0] == 27 && buffer[1] == 91)
 		arr(buffer, list, direction, win);

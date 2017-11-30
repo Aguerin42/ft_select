@@ -37,26 +37,26 @@ struct termios	term_default(int set_default, int *ret)
 
 static void		sig(void)
 {
-	signal(SIGHUP, quit);
-	signal(SIGINT, quit);
-	signal(SIGQUIT, quit);
-	signal(SIGILL, quit);
-	signal(SIGTRAP, quit);
-	signal(SIGABRT, quit);
-	signal(SIGFPE, quit);
-	signal(SIGBUS, quit);
-	signal(SIGSEGV, quit);
-	signal(SIGSYS, quit);
-	signal(SIGPIPE, quit);
-	signal(SIGALRM, quit);
-	signal(SIGTERM, quit);
-	signal(SIGTTOU, quit);
-	signal(SIGXCPU, quit);
-	signal(SIGXFSZ, quit);
-	signal(SIGVTALRM, quit);
-	signal(SIGPROF, quit);
-	signal(SIGUSR1, quit);
-	signal(SIGUSR2, quit);
+	signal(SIGHUP, reset_quit);
+	signal(SIGINT, reset_quit);
+	signal(SIGQUIT, reset_quit);
+	signal(SIGILL, reset_quit);
+	signal(SIGTRAP, reset_quit);
+	signal(SIGABRT, reset_quit);
+	signal(SIGFPE, reset_quit);
+	signal(SIGBUS, reset_quit);
+	signal(SIGSEGV, reset_quit);
+	signal(SIGSYS, reset_quit);
+	signal(SIGPIPE, reset_quit);
+	signal(SIGALRM, reset_quit);
+	signal(SIGTERM, reset_quit);
+	signal(SIGTTOU, reset_quit);
+	signal(SIGXCPU, reset_quit);
+	signal(SIGXFSZ, reset_quit);
+	signal(SIGVTALRM, reset_quit);
+	signal(SIGPROF, reset_quit);
+	signal(SIGUSR1, reset_quit);
+	signal(SIGUSR2, reset_quit);
 	signal(SIGTSTP, catch_signal);
 	signal(SIGWINCH, catch_signal);
 	signal(SIGCONT, catch_signal);
@@ -78,8 +78,8 @@ static void		sig(void)
 
 int				main(int argc, char **argv, char **env)
 {
-	int				ret;
-	char			*term;
+	int		ret;
+	char	*term;
 
 	ret = 0;
 	sig();

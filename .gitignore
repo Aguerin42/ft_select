@@ -51,5 +51,6 @@ Docs/
 *.xpl
 *.bidon
 *.igno
+log
 Notes.md
 ft_select

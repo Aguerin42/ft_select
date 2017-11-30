@@ -27,33 +27,6 @@ static int	nb_line(void *elem, int size)
 	return (1);
 }
 
-/*
-**	\brief	Calcul du nombre de lignes nécessaires à l'affichage
-**
-**	La fonction calcule, en fonction des arguments affichables et de la taille
-**	de la fenêtre, le nombre de lignes nécessaires pour pouvoir afficher tous
-**	les arguments.
-**
-**	\param	list -		liste d'arguments
-**	\param	win_size -	taille de la fenêtre en colonnes
-**
-**	\return	**0** si `list` est `NULL`
-**			ou un **nombre strictement positif** sinon
-*/
-
-static int	nb_line_tot(t_list *list, int win_size)
-{
-	int	i;
-
-	i = 0;
-	while (list && list->content)
-	{
-		i += nb_line(list->content, win_size);
-		list = list->next;
-	}
-	return (i);
-}
-
 /**
 **	\brief	Nombre de colonnes possibles dans la fenêtre
 **
@@ -108,11 +81,19 @@ static void	padding2(t_list *list, struct winsize win, int max_size)
 void		padding(t_list *list, struct winsize win)
 {
 	int	max_size;
+	int	column;
+	int	nb_print;
 
 	max_size = max_size_arg(list);
+	column = nb_column(win, max_size);
+	nb_print = ft_lstcount_if(list, is_printable);
 	ft_putstr_fd(tgetstr("cl", NULL), 0);
-	if (max_size > win.ws_col && nb_line_tot(list, win.ws_col) > win.ws_row - 1)
-		print_message("The window is too small...", 2);
+	if (((column <= 1 && nb_print > win.ws_row - 1)
+		|| ((max_size + 1) * nb_print) > (win.ws_row - 1) * (win.ws_col - 2)))
+	{
+		ft_putstr_fd(tgetstr("cl", NULL), 0);
+		ft_putstr_fd("The window is too small...", 2);
+	}
 	else if (list)
 		padding2(list, win, max_size);
 }

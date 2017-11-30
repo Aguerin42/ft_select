@@ -83,7 +83,11 @@ void		catch_signal(int sig)
 	{
 		term_default(1, NULL);
 		signal(SIGTSTP, SIG_DFL);
-		ioctl(0, TIOCSTI, cp);
+		if (ioctl(0, TIOCSTI, cp) == -1)
+		{
+			print_message("ft_select : error with ioctl function", 2);
+			reset_quit(-1);
+		}
 	}
 	else if (sig == SIGCONT)
 	{

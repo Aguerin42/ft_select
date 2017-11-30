@@ -17,7 +17,7 @@ static void	sig_msg(int signal)
 	if (signal == SIGHUP)
 		ft_putendl_fd("hangup ft_select", 2);
 	else if (signal == SIGINT)
-		ft_putendl_fd("ft_select", 2);
+		ft_putendl_fd("quit ft_select", 2);
 	else if (signal == SIGQUIT)
 		ft_putendl_fd("quit ft_select", 2);
 	else if (signal == SIGILL)
@@ -33,7 +33,7 @@ static void	sig_msg(int signal)
 	else if (signal == SIGSYS)
 		ft_putendl_fd("invalid system call ft_select", 2);
 	else if (signal == SIGPIPE)
-		ft_putendl_fd("ft_select", 2);
+		ft_putendl_fd("pipe error ft_select", 2);
 	else if (signal == SIGTERM)
 		ft_putendl_fd("terminated ft_select", 2);
 	else if (signal == SIGUSR1 || signal == SIGUSR2)

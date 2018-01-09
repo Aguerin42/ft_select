@@ -94,7 +94,7 @@ normeall: norme
 doxygen:
 	@echo "$(CYAN)Génération de la documentation de $(PROJET)$(RESET)"
 	@mkdir -p Docs
-	@doxygen $(PROJET).doxyconf > Docs/$(PROJET).log
+	@$(DOXYGEN) $(PROJET).doxyconf > Docs/$(PROJET).log
 
 cleandoxy:
 	@echo "Suppression de la documentation de $(PROJET)"
@@ -113,5 +113,8 @@ NOIR  = \033[30m
 ROUGE = \033[31m
 ROUGEC = \033[1;31m
 VERT  = \033[32m
+
+# Variables
+DOXYGEN = doxygen
 
 .PHONY: all clean fclean re del delall libft cleanlib fcleanlib relib norme normeall
